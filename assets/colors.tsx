@@ -1,5 +1,5 @@
 const ColorsIcon = () => (
-  <svg width="395" height="601" viewBox="0 0 375 601" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <svg width="395" height="385" viewBox="0 0 375 601" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path
       d="M359 385.46C370.395 405.838 410.82 405.375 449.292 384.426C487.764 363.478 509.715 329.976 498.319 309.597C486.925 289.219 446.497 289.682 408.027 310.631C369.555 331.58 347.606 365.083 359 385.46Z"
       fill="#B14DFF"
