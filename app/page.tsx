@@ -3,13 +3,21 @@ import { useState, useEffect } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 
 import { Step1, Step2, Step3, Step4, Step5 } from '@/components/steps';
-import { Step } from '@/components/UI/step-cascade';
 import Logo from '@/assets/logo';
 import Clouds from '@/assets/clouds';
+import { appearAnimation } from '@/utils/helpers';
 
 export default function Home() {
   const [step, setStep] = useState(0);
   const [footerTextColor, setFooterTextColor] = useState('text-150');
+
+  const steps = [
+    <Step1 key={0} />,
+    <Step2 key={1} onNext={() => handleStep(2)} />,
+    <Step3 key={2} onNext={() => handleStep(3)} />,
+    <Step4 key={3} onNext={() => handleStep(4)} />,
+    <Step5 key={4} setFooterTextColor={setFooterTextColor} />,
+  ];
 
   const handleStep = (nextStep: number) => {
     setStep(nextStep);
@@ -43,34 +51,10 @@ export default function Home() {
           )}
         </AnimatePresence>
 
-        <AnimatePresence mode="wait">
-          {step === 0 && (
-            <Step key="step1" enter="rtl" exit="rtl" variant="primary">
-              <Step1 />
-            </Step>
-          )}
-          {step === 1 && (
-            <Step key="step2" enter="rtl" exit="rtl" variant="secondary">
-              <Step2 onNext={() => handleStep(2)} />
-            </Step>
-          )}
-          {step === 2 && (
-            <Step key="step3" enter="rtl" exit="rtl" variant="primary">
-              <Step3 onNext={() => handleStep(3)} />
-            </Step>
-          )}
-
-          {step === 3 && (
-            <Step key="step4" enter="rtl" exit="rtl" variant="primary">
-              <Step4 onNext={() => handleStep(4)} />
-            </Step>
-          )}
-
-          {step === 4 && (
-            <Step key="step5" enter="rtl" exit="rtl" variant="primary">
-              <Step5 setFooterTextColor={setFooterTextColor} />
-            </Step>
-          )}
+        <AnimatePresence mode="popLayout">
+          <motion.div key={step} {...appearAnimation}>
+            {steps[step]}
+          </motion.div>
         </AnimatePresence>
 
         <AnimatePresence mode="wait">
