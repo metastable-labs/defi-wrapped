@@ -13,7 +13,7 @@ const Step3 = ({ onNext }: StepProps) => {
 
   return (
     <div className="bg-background-250 h-screen max-h-screen overflow-hidden flex flex-col pt-40 items-center gap-4">
-      <Image alt="animation loader" src="/images/loading.gif" width={220} height={220} />
+      <Image alt="animation loader" className="bg-transparent" src="/images/loading.gif" width={220} height={220} />
       <p className="text-sm font-medium text-50 w-[45%] text-center">Please wait while we get your information...</p>
     </div>
   );
