@@ -2,16 +2,30 @@ import { motion } from 'framer-motion';
 
 import CircleStack from '@/assets/circle-stack';
 import { StarIcon } from '@/public/icons';
+import useSystemFunctions from '@/hooks/useSystemFunctions';
+import { generateConsistentColor } from '@/utils/helpers';
 
 const Step2 = () => {
+  const {
+    metricsState: { metrics },
+  } = useSystemFunctions();
+
+  const mostFrequentDestination = metrics?.protocolUsage.mostUsedProtocols[0];
+  const mostFrequentDestinationColor = generateConsistentColor(mostFrequentDestination! || '');
+  const mostFrequentDestinationCount = (metrics?.protocolUsage.interactionCounts[mostFrequentDestination!] || 0).toLocaleString();
   return (
     <div className="h-full w-full flex flex-col gap-2 justify-center items-center relative">
       <h1 className="text-[38px] leading-[40.28px] text-center text-50 font-medium">
         Your most <br /> frequent <br /> destination was
       </h1>
 
-      <div className="px-4 h-[62px] rounded-[40px] bg-450 border-[3px] border-50 flex items-center justify-center">
-        <span className="text-[38px] leading-[40.28px] text-center text-50 font-medium">Aerodome</span>
+      <div
+        style={{
+          backgroundColor: mostFrequentDestinationColor,
+        }}
+        className="px-4 h-[62px] rounded-[40px] border-[3px] border-50 flex items-center justify-center"
+      >
+        <span className="text-[38px] leading-[40.28px] text-center text-50 font-medium">{mostFrequentDestination}</span>
       </div>
 
       <h1 className="text-[38px] leading-[40.28px] text-center text-50 font-medium">
@@ -19,7 +33,7 @@ const Step2 = () => {
       </h1>
 
       <div className="px-4 h-[62px] rounded-[40px] bg-white border-[3px] border-50 flex items-center justify-center relative">
-        <span className="text-[38px] leading-[40.28px] text-center text-50 font-medium">{(3_670).toLocaleString()}</span>
+        <span className="text-[38px] leading-[40.28px] text-center text-50 font-medium">{mostFrequentDestinationCount}</span>
 
         <div className="absolute -top-2 -right-3 scale-95">
           <StarIcon duration={5} />

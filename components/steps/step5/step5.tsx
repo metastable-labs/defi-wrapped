@@ -1,13 +1,20 @@
-import { StarIcon } from '@/public/icons';
+import useSystemFunctions from '@/hooks/useSystemFunctions';
 import CoinsStacked from '@/assets/coins-stacked';
+import { StarIcon } from '@/public/icons';
 
 const Step5 = () => {
+  const {
+    metricsState: { metrics },
+  } = useSystemFunctions();
+
+  const transactions = metrics?.transactionActivity.totalTransactions?.toLocaleString();
+  const averageTransaction = metrics?.transactionActivity.averageTransactionValue?.toLocaleString();
   return (
     <div className="h-full w-full flex flex-col gap-2 justify-center items-center relative">
       <h1 className="text-[38px] leading-[40.28px] text-center text-50 font-medium">You executed</h1>
 
       <div className="px-4 h-[62px] rounded-[40px] bg-white border-[3px] border-50 flex items-center justify-center relative">
-        <span className="text-[38px] leading-[40.28px] text-center text-50 font-medium">{(1_000).toLocaleString()}</span>
+        <span className="text-[38px] leading-[40.28px] text-center text-50 font-medium">{transactions}</span>
 
         <div className="absolute -bottom-5 -left-3 z-10 scale-50">
           <StarIcon duration={3} />
@@ -19,7 +26,7 @@ const Step5 = () => {
       </p>
 
       <div className="px-4 h-[62px] rounded-[40px] bg-white border-[3px] border-50 flex items-center justify-center relative">
-        <span className="text-[38px] leading-[40.28px] text-center text-50 font-medium">${(10_000).toLocaleString()}</span>
+        <span className="text-[38px] leading-[40.28px] text-center text-50 font-medium">${averageTransaction}</span>
 
         <div className="absolute top-2.5 -right-4 scale-95">
           <StarIcon duration={10} />

@@ -1,7 +1,13 @@
-import { StarIcon } from '@/public/icons';
+import useSystemFunctions from '@/hooks/useSystemFunctions';
 import Treasure from '@/assets/treasure';
+import { StarIcon } from '@/public/icons';
 
 const Step6 = () => {
+  const {
+    metricsState: { metrics },
+  } = useSystemFunctions();
+
+  const largestTransaction = metrics?.transactionActivity.largestTransaction.value?.toLocaleString();
   return (
     <div className="h-full w-full flex flex-col gap-8 items-center relative pt-52">
       <div className="flex flex-col gap-3.5">
@@ -16,7 +22,7 @@ const Step6 = () => {
         </div>
 
         <div className="px-4 h-[62px] rounded-[40px] bg-white border-[3px] border-50 flex items-center justify-center">
-          <span className="text-[38px] leading-[40.28px] text-center text-50 font-medium">${(2_000_000).toLocaleString()}</span>
+          <span className="text-[38px] leading-[40.28px] text-center text-50 font-medium">${largestTransaction}</span>
         </div>
 
         <p className="text-[38px] leading-[40.28px] text-center text-50 font-medium">
