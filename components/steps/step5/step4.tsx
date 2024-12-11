@@ -1,6 +1,7 @@
+import Image from 'next/image';
+
 import Message from '@/assets/message';
 import Plane from '@/assets/plane';
-import Image from 'next/image';
 
 const Step4 = () => {
   return (

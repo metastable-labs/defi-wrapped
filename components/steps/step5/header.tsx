@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import classNames from 'classnames';
+
 import useTruncateText from '@/hooks/useTruncateText';
 import { DisconnectIcon } from '@/public/icons';
 import { DWClickAnimation } from '@/components/UI';
@@ -39,7 +40,7 @@ const Header = ({ step, timer, totalSteps }: HeaderProps) => {
           </DWClickAnimation>
         </div>
       </div>
-      {/* Step Indicators */}
+
       <div className="flex items-center gap-2 mt-2">
         {Array.from({ length: totalSteps }).map((_, index) => (
           <motion.div key={index} className="relative w-full h-1 bg-[#FFFFFF3D] rounded overflow-hidden">

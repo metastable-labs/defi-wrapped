@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+
 import CircleStack from '@/assets/circle-stack';
 import { StarIcon } from '@/public/icons';
 

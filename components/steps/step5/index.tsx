@@ -3,8 +3,8 @@ import classNames from 'classnames';
 import { AnimatePresence, motion } from 'framer-motion';
 
 import { ArrowLeftCircleIcon, ArrowRightCircleIcon } from '@/public/icons';
-import Header from './header';
 import { DWClickAnimation } from '@/components/UI';
+import Header from './header';
 import Step1 from './step1';
 import Step2 from './step2';
 import Step3 from './step3';
@@ -12,11 +12,20 @@ import Step4 from './step4';
 import Step5 from './step5';
 import Step6 from './step6';
 import Step7 from './step7';
+import Step8 from './step8';
+import Step9 from './step9';
+import Step10 from './step10';
+import Step11 from './step11';
+import Step12 from './step12';
+import Step13 from './step13';
+import Step14 from './step14';
+import Step15 from './step15';
+import Step16 from './step16';
 
 const Step5Wrapper = ({ setFooterTextColor }: StepProps) => {
   const [step, setStep] = useState(0);
   const [timer, setTimer] = useState(0);
-  const totalSteps = 15;
+  const totalSteps = 16;
   const stepDuration = 4;
 
   const intervalRef = useRef<number | null>(null);
@@ -31,6 +40,15 @@ const Step5Wrapper = ({ setFooterTextColor }: StepProps) => {
     <Step5 key={4} />,
     <Step6 key={5} />,
     <Step7 key={6} />,
+    <Step8 key={7} />,
+    <Step9 key={8} />,
+    <Step10 key={9} />,
+    <Step11 key={10} />,
+    <Step12 key={11} />,
+    <Step13 key={12} />,
+    <Step14 key={13} />,
+    <Step15 key={14} />,
+    <Step16 key={15} />,
   ];
 
   const next = () => {
@@ -54,40 +72,40 @@ const Step5Wrapper = ({ setFooterTextColor }: StepProps) => {
     }
   };
 
-  // useEffect(() => {
-  //   if (intervalRef.current) {
-  //     clearInterval(intervalRef.current);
-  //   }
+  useEffect(() => {
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+    }
 
-  //   if (currentStepRef.current < totalSteps) {
-  //     intervalRef.current = window.setInterval(() => {
-  //       setTimer((prevTimer) => {
-  //         if (prevTimer < stepDuration) {
-  //           return prevTimer + 0.1;
-  //         } else {
-  //           next();
-  //           return 0;
-  //         }
-  //       });
-  //     }, 100);
-  //   }
+    if (currentStepRef.current < totalSteps) {
+      intervalRef.current = window.setInterval(() => {
+        setTimer((prevTimer) => {
+          if (prevTimer < stepDuration) {
+            return prevTimer + 0.1;
+          } else {
+            next();
+            return 0;
+          }
+        });
+      }, 100);
+    }
 
-  //   return () => {
-  //     if (intervalRef.current) {
-  //       clearInterval(intervalRef.current);
-  //     }
-  //   };
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [step]);
+    return () => {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+      }
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [step]);
 
-  // useEffect(() => {
-  //   if (currentStepRef.current === totalSteps - 1 && timer >= stepDuration) {
-  //     if (intervalRef.current) {
-  //       clearInterval(intervalRef.current);
-  //       intervalRef.current = null;
-  //     }
-  //   }
-  // }, [timer, step]);
+  useEffect(() => {
+    if (currentStepRef.current === totalSteps - 1 && timer >= stepDuration) {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+        intervalRef.current = null;
+      }
+    }
+  }, [timer, step]);
 
   useEffect(() => {
     if (step <= 2) setFooterTextColor?.('text-150');

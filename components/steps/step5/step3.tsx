@@ -1,6 +1,7 @@
-import { motion } from 'framer-motion';
-import { StarIcon } from '@/public/icons';
 import Image from 'next/image';
+import { motion } from 'framer-motion';
+
+import { StarIcon } from '@/public/icons';
 
 const colors: Record<string, string> = {
   aerodome: '#B14DFF',
@@ -34,7 +35,7 @@ const Step3 = () => {
           {top5.map(({ name, id }, index) => (
             <motion.div
               key={id}
-              className="min-w-40 px-6 h-20 flex items-center justify-center relative rounded-full border-[3px] border-black"
+              className="min-w-40 px-6 h-[62px] flex items-center justify-center relative rounded-full border-[3px] border-black"
               style={{
                 backgroundColor: colors[id],
                 zIndex: [0, 2, 4].includes(index) ? 2 : 1,
