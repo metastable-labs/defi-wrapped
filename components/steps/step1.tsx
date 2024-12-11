@@ -23,11 +23,11 @@ const Step1 = ({ onNext }: StepProps) => {
             <br /> Wrapped
           </h1>
 
-          <div className="absolute z-20 top-8 left-4 md:left-20">
+          <div className="absolute z-20 top-8 left-4">
             <GlassesIcon />
           </div>
 
-          <div className="absolute z-20 top-10 right-11 md:right-[105px]">
+          <div className="absolute z-20 top-10 right-11">
             <DollarIcon />
           </div>
 
