@@ -1,8 +1,7 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { motion } from 'framer-motion';
-import Logo from '@/assets/logo';
 import GlassesIcon from '@/assets/glasses';
 import DollarIcon from '@/assets/dollar';
+import { StarIcon } from '@/public/icons';
 
 const boxes = [
   { text: 'Uniswap', color: '#B14DFF', delay: 0, classes: 'bottom-2 left-0 px-[17px]', rotate: 10 },
@@ -14,21 +13,30 @@ const boxes = [
   { text: 'Moonwell', color: '#C1FF2F', delay: 1, classes: 'bottom-[194px] md:bottom-[192px] right-0 px-[19px]', rotate: -2 },
 ];
 
-const Step1 = () => {
+const Step1 = ({ onNext }: StepProps) => {
   return (
     <div className="bg-background-50 h-screen max-h-screen relative overflow-hidden">
       <div className="pt-16 flex flex-col items-center justify-center">
-        <Logo />
-
         <div className="relative mt-[86px]">
-          <h1 className="z-10 text-[65px] leading-[60px] text-center text-50 font-medium custom-font-feature">DeFi Wrapped</h1>
+          <h1 className="z-10 text-[65px] leading-[60px] text-center text-50 font-medium custom-font-feature">
+            DeFi
+            <br /> Wrapped
+          </h1>
 
-          <div className="absolute z-20 top-8 left-16 md:left-20">
+          <div className="absolute z-20 top-8 left-4">
             <GlassesIcon />
           </div>
 
-          <div className="absolute z-20 top-10 right-[96px] md:right-[105px]">
+          <div className="absolute z-20 top-10 right-11">
             <DollarIcon />
+          </div>
+
+          <div className="absolute z-20 top-[42px] right-3.5">
+            <StarIcon duration={5} />
+          </div>
+
+          <div className="absolute z-20 -bottom-7 left-3.5 scale-50">
+            <StarIcon duration={3} />
           </div>
         </div>
 

@@ -1,6 +1,22 @@
+import { motion } from 'framer-motion';
+
 const GlassesIcon = () => {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" width="73" height="55" viewBox="0 0 73 55" fill="none">
+    <motion.svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="73"
+      height="55"
+      viewBox="0 0 73 55"
+      fill="none"
+      animate={{
+        rotate: [0, 30, 0],
+      }}
+      transition={{
+        duration: 1.5,
+        repeat: Infinity,
+        ease: 'easeInOut',
+      }}
+    >
       <g filter="url(#filter0_d_4038_390)">
         <path
           d="M60.9679 11.5674L7.53165 20.6891L3.48087 24.1931L5.95472 38.6883L13.9736 44.2177L28.836 41.6799L34.3591 33.1314L39.7841 32.2071L47.8313 38.4352L62.6952 35.9013L68.4277 28.025L65.9538 13.5298L60.9679 11.5674Z"
@@ -23,9 +39,9 @@ const GlassesIcon = () => {
           width="65.9468"
           height="33.6503"
           filterUnits="userSpaceOnUse"
-          color-interpolation-filters="sRGB"
+          colorInterpolationFilters="sRGB"
         >
-          <feFlood flood-opacity="0" result="BackgroundImageFix" />
+          <feFlood floodOpacity="0" result="BackgroundImageFix" />
           <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
           <feOffset dx="1" dy="1" />
           <feComposite in2="hardAlpha" operator="out" />
@@ -34,7 +50,7 @@ const GlassesIcon = () => {
           <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_4038_390" result="shape" />
         </filter>
       </defs>
-    </svg>
+    </motion.svg>
   );
 };
 

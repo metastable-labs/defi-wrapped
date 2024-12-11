@@ -1,5 +1,21 @@
+import { motion } from 'framer-motion';
+
 const DollarIcon = () => (
-  <svg xmlns="http://www.w3.org/2000/svg" width="46" height="51" viewBox="0 0 46 51" fill="none">
+  <motion.svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="46"
+    height="51"
+    viewBox="0 0 46 51"
+    fill="none"
+    animate={{
+      scale: [1, 0.9, 1.01, 1],
+    }}
+    transition={{
+      duration: 2,
+      repeat: Infinity,
+      ease: 'easeInOut',
+    }}
+  >
     <g filter="url(#filter0_d_4038_395)">
       <path
         d="M38.6952 41.3418C37.5813 42.4801 36.1751 43.0663 34.6355 43.0395C33.3255 43.0171 32.1062 42.5541 31.0772 41.6904C30.5369 42.06 30.0087 42.3844 29.4941 42.6673C28.3445 43.2915 27.346 43.7507 26.4425 44.0677C25.1492 44.5448 23.7827 44.5769 22.5382 44.1378C21.406 43.7376 20.4472 43.0557 19.6916 42.1112C18.9593 41.2019 18.4917 40.1481 18.3084 38.9866C18.1073 37.7069 18.3155 36.4429 18.9156 35.3228C19.0466 35.0763 19.1989 34.8391 19.374 34.6148C14.6134 35.7892 11.2544 33.4531 9.4714 31.6487C7.32212 29.4748 6.19044 26.8564 6.11158 23.8685C6.05591 21.8122 6.49501 19.7768 7.42491 17.7954C6.35612 16.6747 5.77664 15.2949 5.7447 13.7979C5.7079 12.2357 6.27718 10.8056 7.39482 9.66575C8.49903 8.53588 9.89836 7.9436 11.4316 7.95506C12.832 7.96282 14.1305 8.46944 15.2041 9.43131C15.373 9.33061 15.5473 9.23222 15.7215 9.13382C16.7587 8.55573 17.822 8.13721 18.889 7.88749C20.4676 7.45463 22.0007 7.63643 23.3362 8.41464C24.5452 9.11932 25.4753 10.1581 26.0278 11.419C26.6424 12.8202 26.6925 14.3187 26.1685 15.7526C25.991 16.2377 25.7443 16.693 25.4252 17.1107C30.9769 14.9934 34.7674 17.5377 36.6786 19.4732C38.8602 21.6831 39.9838 24.3138 40.0114 27.3048C40.0338 29.312 39.5935 31.2807 38.6994 33.1891C39.7751 34.316 40.3481 35.7119 40.3638 37.2334C40.3803 38.7995 39.8025 40.2196 38.6967 41.3457L38.6952 41.3418Z"
@@ -18,9 +34,9 @@ const DollarIcon = () => (
         width="34.6211"
         height="37.7893"
         filterUnits="userSpaceOnUse"
-        color-interpolation-filters="sRGB"
+        colorInterpolationFilters="sRGB"
       >
-        <feFlood flood-opacity="0" result="BackgroundImageFix" />
+        <feFlood floodOpacity="0" result="BackgroundImageFix" />
         <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha" />
         <feOffset dy="1" />
         <feComposite in2="hardAlpha" operator="out" />
@@ -29,7 +45,7 @@ const DollarIcon = () => (
         <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_4038_395" result="shape" />
       </filter>
     </defs>
-  </svg>
+  </motion.svg>
 );
 
 export default DollarIcon;
