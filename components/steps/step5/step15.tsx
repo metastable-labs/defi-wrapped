@@ -1,8 +1,15 @@
 import Image from 'next/image';
 
+import useSystemFunctions from '@/hooks/useSystemFunctions';
 import { StarIcon } from '@/public/icons';
 
 const Step15 = () => {
+  const {
+    metricsState: { metrics },
+  } = useSystemFunctions();
+
+  const earned = metrics?.lendingBorrowing?.interest?.earned.toLocaleString();
+
   return (
     <div className="h-full w-full flex flex-col gap-16 justify-center items-center relative">
       <div className="flex flex-col items-center justify-center gap-3.5">
@@ -17,7 +24,7 @@ const Step15 = () => {
         </div>
 
         <div className="px-6 h-[62px] rounded-[40px] bg-white border-[3px] border-50 flex items-center justify-center">
-          <span className="text-[38px] leading-[40.28px] text-center text-50 font-medium">${(2_500).toLocaleString()}</span>
+          <span className="text-[38px] leading-[40.28px] text-center text-50 font-medium">${earned}</span>
         </div>
 
         <span className="text-[38px] leading-[40.28px] text-center text-white font-medium">in interest</span>

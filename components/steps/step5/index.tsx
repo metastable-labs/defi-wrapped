@@ -22,7 +22,7 @@ import Step14 from './step14';
 import Step15 from './step15';
 import Step16 from './step16';
 
-const Step5Wrapper = ({ setFooterTextColor }: StepProps) => {
+const Step5Wrapper = ({ setFooterTextColor, setShouldTransitionToSix, showStepFiveLastStep, setShowStepFiveLastStep }: StepProps) => {
   const [step, setStep] = useState(0);
   const [timer, setTimer] = useState(0);
   const totalSteps = 16;
@@ -31,6 +31,7 @@ const Step5Wrapper = ({ setFooterTextColor }: StepProps) => {
   const intervalRef = useRef<number | null>(null);
   const currentStepRef = useRef(0);
   const allowAdvanceRef = useRef(true);
+  const transitionPendingRef = useRef(false); // Prevent double updates
 
   const steps = [
     <Step1 key={0} />,
@@ -66,6 +67,9 @@ const Step5Wrapper = ({ setFooterTextColor }: StepProps) => {
 
   const prev = () => {
     if (currentStepRef.current > 0) {
+      if (currentStepRef.current === totalSteps - 1) {
+        setShouldTransitionToSix?.(false);
+      }
       currentStepRef.current -= 1;
       setStep(currentStepRef.current);
       setTimer(0);
@@ -82,9 +86,19 @@ const Step5Wrapper = ({ setFooterTextColor }: StepProps) => {
         setTimer((prevTimer) => {
           if (prevTimer < stepDuration) {
             return prevTimer + 0.1;
-          } else {
+          } else if (currentStepRef.current < totalSteps - 1) {
+            // Advance to the next step if not the last step
             next();
             return 0;
+          } else {
+            // Handle transition when on the last step and step duration completes
+            if (currentStepRef.current === totalSteps - 1 && !transitionPendingRef.current) {
+              transitionPendingRef.current = true; // Prevent multiple triggers
+              setTimeout(() => {
+                setShouldTransitionToSix?.(true);
+              }, stepDuration * 1000); // Wait for the step duration
+            }
+            return prevTimer; // Keep the timer as-is
           }
         });
       }, 100);
@@ -99,19 +113,17 @@ const Step5Wrapper = ({ setFooterTextColor }: StepProps) => {
   }, [step]);
 
   useEffect(() => {
-    if (currentStepRef.current === totalSteps - 1 && timer >= stepDuration) {
-      if (intervalRef.current) {
-        clearInterval(intervalRef.current);
-        intervalRef.current = null;
-      }
-    }
-  }, [timer, step]);
-
-  useEffect(() => {
     if (step <= 2) setFooterTextColor?.('text-150');
     if (step > 2) setFooterTextColor?.('text-700');
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [step]);
+  }, [step, setFooterTextColor]);
+
+  useEffect(() => {
+    if (showStepFiveLastStep) {
+      currentStepRef.current = 15;
+      setStep(15);
+      setShowStepFiveLastStep?.(false);
+    }
+  }, [showStepFiveLastStep, setShowStepFiveLastStep]);
 
   return (
     <div

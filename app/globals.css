@@ -38,3 +38,12 @@ body {
 .custom-font-feature {
   font-feature-settings: 'ss11' on, 'cv09' on, 'liga' off, 'calt' off;
 }
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}

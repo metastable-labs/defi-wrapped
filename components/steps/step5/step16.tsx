@@ -1,8 +1,18 @@
 import Image from 'next/image';
 
+import useSystemFunctions from '@/hooks/useSystemFunctions';
 import { StarIcon } from '@/public/icons';
 
 const Step16 = () => {
+  const {
+    metricsState: { metrics },
+  } = useSystemFunctions();
+
+  const paid = metrics?.lendingBorrowing?.interest?.paid.toLocaleString(undefined, {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  });
+
   return (
     <div className="h-full w-full flex flex-col gap-16 justify-center items-center relative">
       <div className="flex flex-col items-center justify-center gap-3.5">
@@ -15,7 +25,7 @@ const Step16 = () => {
         </div>
 
         <div className="px-6 h-[62px] rounded-[40px] bg-white border-[3px] border-50 flex items-center justify-center">
-          <span className="text-[38px] leading-[40.28px] text-center text-50 font-medium">${(500).toLocaleString()}</span>
+          <span className="text-[38px] leading-[40.28px] text-center text-50 font-medium">${paid}</span>
         </div>
 
         <p className="text-[38px] leading-[40.28px] text-center text-white font-medium">

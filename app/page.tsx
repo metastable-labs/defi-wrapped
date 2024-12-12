@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 
-import { Step1, Step2, Step3, Step4, Step5 } from '@/components/steps';
+import { Step1, Step2, Step3, Step4, Step5, Step6 } from '@/components/steps';
 import Logo from '@/assets/logo';
 import Clouds from '@/assets/clouds';
 import { appearAnimation } from '@/utils/helpers';
@@ -12,14 +12,33 @@ export default function Home() {
   const { isConnected, address } = useAccount();
 
   const [step, setStep] = useState(0);
+  const [shouldTransitionToSix, setShouldTransitionToSix] = useState(false);
   const [footerTextColor, setFooterTextColor] = useState('text-150');
+  const [showStepFiveLastStep, setShowStepFiveLastStep] = useState(false);
 
   const steps = [
     <Step1 key={0} />,
     <Step2 key={1} onNext={() => handleStep(2)} />,
     <Step3 key={2} onNext={() => handleStep(3)} />,
     <Step4 key={3} onNext={() => handleStep(4)} />,
-    <Step5 key={4} setFooterTextColor={setFooterTextColor} />,
+    <Step5
+      showStepFiveLastStep={showStepFiveLastStep}
+      key={4}
+      setFooterTextColor={setFooterTextColor}
+      setShouldTransitionToSix={setShouldTransitionToSix}
+      setShowStepFiveLastStep={setShowStepFiveLastStep}
+    />,
+    <Step6
+      key={5}
+      onPrev={() => {
+        setTimeout(() => {
+          setStep((prev) => Math.max(prev - 1, 0));
+          setShouldTransitionToSix(false);
+          setShowStepFiveLastStep(true);
+        }, 100);
+      }}
+      setShouldTransitionToSix={setShouldTransitionToSix}
+    />,
   ];
 
   const handleStep = (nextStep: number) => {
@@ -40,6 +59,13 @@ export default function Home() {
     return () => clearTimeout(timer);
   }, [step, isConnected, address]);
 
+  useEffect(() => {
+    if (shouldTransitionToSix) {
+      setStep(5);
+      setFooterTextColor('text-50');
+    }
+  }, [shouldTransitionToSix]);
+
   return (
     <div className="relative md:bg-black md:w-full md:max-h-screen md:flex md:justify-center p-0 m-0 overflow-hidden">
       <div className="relative md:w-[395px] 2xl:w-96 md:self-center md:rounded-md h-full overflow-hidden">
@@ -59,7 +85,7 @@ export default function Home() {
         </AnimatePresence>
 
         <AnimatePresence mode="popLayout">
-          <motion.div key={step} {...appearAnimation}>
+          <motion.div key={`step-${step}`} {...appearAnimation}>
             {steps[step]}
           </motion.div>
         </AnimatePresence>
@@ -94,13 +120,15 @@ export default function Home() {
             >
               <motion.div
                 initial={{ opacity: 1 }}
-                animate={{ opacity: step === 4 ? 0 : 1 }}
+                animate={{ opacity: step >= 4 ? 0 : 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.5 }}
               >
                 <Logo />
               </motion.div>
-              <p className={`text-xs font-medium ${footerTextColor}`}>Powered by useliquid.xyz</p>
+              <a href="https://useliquid.xyz" target="_blank" className={`text-xs font-medium ${footerTextColor}`}>
+                Powered by useliquid.xyz
+              </a>
             </motion.div>
           )}
         </AnimatePresence>

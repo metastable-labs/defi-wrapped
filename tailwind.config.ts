@@ -32,7 +32,16 @@ export default {
         650: '#EEEBFF',
         700: '#E3EEFF',
         750: '#F6C445',
+        800: '#5A36BF',
+        850: '#FFC03E',
+        900: '#B3D4FF',
+        950: '#FBFFF0',
+        1000: '#E5C4FF',
         foreground: 'var(--foreground)',
+      },
+
+      boxShadow: {
+        primary: '0px 8px 14px 0px rgba(193, 210, 235, 0.47)',
       },
     },
     fontFamily: {
