@@ -3,7 +3,7 @@ import Image from 'next/image';
 import { StarAltIcon } from '@/public/icons';
 import DWButton from '../UI/button';
 
-const Step4 = ({ onNext }: { onNext: () => void }) => {
+const Step4 = ({ onNext }: StepProps) => {
   return (
     <div className="bg-background-250 h-screen max-h-screen overflow-hidden relative">
       <div className="relative z-20 flex flex-col justify-center items-center gap-4 mt-60">

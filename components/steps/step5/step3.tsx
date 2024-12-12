@@ -2,6 +2,8 @@ import Image from 'next/image';
 import { motion } from 'framer-motion';
 
 import { StarIcon } from '@/public/icons';
+import useSystemFunctions from '@/hooks/useSystemFunctions';
+import { generateConsistentColor } from '@/utils/helpers';
 
 const colors: Record<string, string> = {
   aerodome: '#B14DFF',
@@ -12,14 +14,13 @@ const colors: Record<string, string> = {
 };
 
 const Step3 = () => {
-  const top5 = [
-    { name: 'Lido', id: 'lido' },
-    { name: 'Aerodome', id: 'aerodome' },
-    { name: 'Aave', id: 'aave' },
-    { name: 'Harvest Finance', id: 'harvestFinance' },
-    { name: 'Morpho', id: 'morpho' },
-  ];
+  const {
+    metricsState: { metrics },
+  } = useSystemFunctions();
 
+  const mostUsedProtocols = metrics?.protocolUsage?.mostUsedProtocols;
+
+  const showMostUsedProtocols = Boolean(mostUsedProtocols);
   return (
     <div className="h-full w-full flex flex-col gap-[9px] items-center relative pt-32">
       <p className="text-50 text-[14px] leading-[16.52px] font-medium text-center max-w-[242px]">
@@ -32,28 +33,46 @@ const Step3 = () => {
 
       <div className="flex-1 w-full relative flex items-center justify-center">
         <div className="w-full pt-10 flex items-center justify-center flex-col">
-          {top5.map(({ name, id }, index) => (
+          {showMostUsedProtocols ? (
+            mostUsedProtocols?.map((protocol, index) => (
+              <motion.div
+                key={protocol}
+                className="min-w-40 px-6 h-[62px] flex items-center justify-center relative rounded-full border-[3px] border-black"
+                style={{
+                  backgroundColor: generateConsistentColor(protocol),
+                  zIndex: [0, 2, 4].includes(index) ? 2 : 1,
+                }}
+                animate={{
+                  rotate: [0, [0, 2, 4].includes(index) ? 10 : -10, [0, 2, 4].includes(index) ? -10 : 10, 0],
+                }}
+                transition={{
+                  duration: 2,
+                  delay: index * 0.3,
+                  repeat: Infinity,
+                  repeatType: 'loop',
+                  ease: 'easeInOut',
+                }}
+              >
+                <span className="text-50 text-4xl text-center font-medium">{protocol}</span>
+              </motion.div>
+            ))
+          ) : (
             <motion.div
-              key={id}
-              className="min-w-40 px-6 h-[62px] flex items-center justify-center relative rounded-full border-[3px] border-black"
-              style={{
-                backgroundColor: colors[id],
-                zIndex: [0, 2, 4].includes(index) ? 2 : 1,
-              }}
+              className="min-w-40 px-6 h-[62px] flex items-center justify-center relative rounded-full border-[3px] border-black bg-white z-10"
               animate={{
-                rotate: [0, [0, 2, 4].includes(index) ? 10 : -10, [0, 2, 4].includes(index) ? -10 : 10, 0],
+                rotate: [0, -10, 10, 0],
               }}
               transition={{
-                duration: 2,
-                delay: index * 0.3,
+                duration: 4,
+                delay: 0.3,
                 repeat: Infinity,
                 repeatType: 'loop',
                 ease: 'easeInOut',
               }}
             >
-              <span className="text-50 text-4xl text-center font-medium">{name}</span>
+              <span className="text-50 text-4xl text-center font-medium">N/A</span>
             </motion.div>
-          ))}
+          )}
         </div>
 
         <div className="absolute w-full h-full flex items-end justify-center">
