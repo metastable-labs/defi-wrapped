@@ -21,7 +21,7 @@
     "next": "15.0.4",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "react-swipeable": "^7.0.2"
+    "react-swipeable": "^7.0.2",
     "viem": "2.x",
     "wagmi": "^2.13.5",
     "react-redux": "^9.2.0"
