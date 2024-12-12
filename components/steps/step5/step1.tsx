@@ -9,7 +9,7 @@ const Step1 = () => {
         Protocol <br /> Mastery
       </h1>
 
-      <div className="absolute bottom-36 left-0">
+      <div className="absolute bottom-28 md:bottom-36 left-0">
         <Image src={'/images/chess-king.png'} alt="Chess King" width={400} height={400} className="object-cover w-full h-full" />
       </div>
 

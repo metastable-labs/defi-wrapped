@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import Image from 'next/image';
 import useMetricsActions from '@/store/metrics/actions';
 import useSystemFunctions from '@/hooks/useSystemFunctions';
+import { useAccount } from 'wagmi';
 
 const ADDRESS = '0xf179d72886f0ad150b3186ad478a851486f4f1fa';
 
@@ -10,9 +11,10 @@ const Step3 = ({ onNext }: StepProps) => {
     metricsState: { loading },
   } = useSystemFunctions();
   const { getMetrics } = useMetricsActions();
+  const { address } = useAccount();
 
   useEffect(() => {
-    getMetrics(ADDRESS);
+    getMetrics(ADDRESS); // will replace with address
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

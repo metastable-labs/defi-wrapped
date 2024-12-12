@@ -7,10 +7,10 @@ import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
 const queryClient = new QueryClient();
 
 const config = getDefaultConfig({
-  appName: 'Defi Wrapped',
-  projectId: '',
+  appName: process.env.NEXT_PUBLIC_APP_NAME as string,
+  projectId: process.env.NEXT_PUBLIC_PROJECT_ID as string,
   chains: [mainnet, polygon, optimism, arbitrum, base],
-  ssr: true,
+  //   ssr: true,
 });
 
 const RainbowConnectKitProvider = ({ children }: { children: React.ReactNode }) => {
