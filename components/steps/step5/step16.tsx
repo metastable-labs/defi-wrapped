@@ -8,7 +8,8 @@ const Step16 = () => {
     metricsState: { metrics },
   } = useSystemFunctions();
 
-  const paid = metrics?.lendingBorrowing?.interest?.paid.toLocaleString(undefined, {
+  const interestPaid = (metrics?.lendingBorrowing?.interest?.paid || 0) / 100000000000000000000;
+  const paid = interestPaid.toLocaleString(undefined, {
     minimumFractionDigits: 2,
     maximumFractionDigits: 2,
   });

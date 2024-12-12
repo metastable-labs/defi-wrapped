@@ -17,7 +17,7 @@ const Step6 = ({ onPrev, setShouldTransitionToSix }: StepProps) => {
   } = useSystemFunctions();
 
   const mostUsedProtocol = metrics?.protocolUsage.mostUsedProtocols[0];
-  const usedCount = metrics?.protocolUsage.interactionCounts;
+  const usedCount = (metrics?.protocolUsage.interactionCounts[mostUsedProtocol!] || 0).toLocaleString();
   const transactionCount = metrics?.transactionActivity.totalTransactions?.toLocaleString();
   const mostTradedPairs = metrics?.tradingMetrics?.mostSwappedPairs[0];
   const totalSwapped = metrics?.tradingMetrics?.totalSwapped?.toLocaleString();
