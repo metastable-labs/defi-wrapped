@@ -1,17 +1,15 @@
 import { motion } from 'framer-motion';
 
-const colors: Record<string, string> = {
-  'eth/usdc': '#FF4C61',
-  'aero/usdc': '#B14DFF',
-  'btc/usdc': '#FFC03E',
-};
+import useSystemFunctions from '@/hooks/useSystemFunctions';
+import { generateConsistentColor } from '@/utils/helpers';
 
 const Step10 = () => {
-  const pools = [
-    { name: 'ETH/USDC', id: 'eth/usdc' },
-    { name: 'AERO/USDC', id: 'aero/usdc' },
-    { name: 'cbBTC/USDC', id: 'btc/usdc' },
-  ];
+  const {
+    metricsState: { metrics },
+  } = useSystemFunctions();
+
+  const showLiquidityPools = Boolean(metrics?.tradingMetrics.liquidityPools.length);
+
   return (
     <div className="h-full w-full flex flex-col gap-14 items-center relative pt-52">
       <p className="text-[38px] leading-[40.28px] text-center text-50 font-medium">
@@ -20,28 +18,46 @@ const Step10 = () => {
 
       <div className="relative">
         <div className="w-full pt-10 flex items-center justify-center flex-col gap-2">
-          {pools.map(({ name, id }, index) => (
+          {showLiquidityPools ? (
+            metrics?.tradingMetrics?.liquidityPools.map((pool, index) => (
+              <motion.div
+                key={pool}
+                className="min-w-40 px-6 h-[62px] flex items-center justify-center relative rounded-full border-[3px] border-black"
+                style={{
+                  backgroundColor: generateConsistentColor(pool),
+                  zIndex: [0, 2, 4].includes(index) ? 2 : 1,
+                }}
+                animate={{
+                  rotate: [0, [0, 2, 4].includes(index) ? 10 : -10, [0, 2, 4].includes(index) ? -10 : 10, 0],
+                }}
+                transition={{
+                  duration: 2,
+                  delay: index * 0.3,
+                  repeat: Infinity,
+                  repeatType: 'loop',
+                  ease: 'easeInOut',
+                }}
+              >
+                <span className="text-50 text-4xl text-center font-medium">{pool}</span>
+              </motion.div>
+            ))
+          ) : (
             <motion.div
-              key={id}
-              className="min-w-40 px-6 h-[62px] flex items-center justify-center relative rounded-full border-[3px] border-black"
-              style={{
-                backgroundColor: colors[id],
-                zIndex: [0, 2, 4].includes(index) ? 2 : 1,
-              }}
+              className="min-w-40 px-6 h-[62px] flex items-center justify-center relative rounded-full border-[3px] border-black bg-white z-10"
               animate={{
-                rotate: [0, [0, 2, 4].includes(index) ? 10 : -10, [0, 2, 4].includes(index) ? -10 : 10, 0],
+                rotate: [0, -10, 10, 0],
               }}
               transition={{
-                duration: 2,
-                delay: index * 0.3,
+                duration: 4,
+                delay: 0.3,
                 repeat: Infinity,
                 repeatType: 'loop',
                 ease: 'easeInOut',
               }}
             >
-              <span className="text-50 text-4xl text-center font-medium">{name}</span>
+              <span className="text-50 text-4xl text-center font-medium">N/A</span>
             </motion.div>
-          ))}
+          )}
         </div>
 
         <div className="absolute w-full h-[364px] flex flex-col items-center justify-center top-0">

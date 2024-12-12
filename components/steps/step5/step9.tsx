@@ -1,8 +1,16 @@
 import Image from 'next/image';
 
+import useSystemFunctions from '@/hooks/useSystemFunctions';
 import { StarIcon } from '@/public/icons';
 
 const Step9 = () => {
+  const {
+    metricsState: { metrics },
+  } = useSystemFunctions();
+
+  const signatureTradingPair = metrics?.tradingMetrics.mostSwappedPairs[0];
+  const totalTradingVolume = metrics?.tradingMetrics?.totalSwapped?.toLocaleString();
+
   return (
     <div className="h-full w-full flex flex-col gap-14 items-center relative pt-52">
       <div className="flex flex-col gap-3.5">
@@ -11,7 +19,7 @@ const Step9 = () => {
         </p>
 
         <div className="px-4 h-[62px] rounded-[40px] bg-400 border-[3px] border-50 flex items-center justify-center relative">
-          <span className="text-[38px] leading-[40.28px] text-center text-50 font-medium">{'ETH/USDC'}</span>
+          <span className="text-[38px] leading-[40.28px] text-center text-50 font-medium">{signatureTradingPair || 'N/A'}</span>
 
           <div className="absolute -top-2 -right-3 z-10">
             <StarIcon duration={5} fill="#FFFFFF" width={36} height={36} />
@@ -23,7 +31,7 @@ const Step9 = () => {
         </div>
 
         <p className="text-[38px] leading-[40.28px] text-center text-50 font-medium">
-          contributing to <br /> your total <br /> trading volume <br /> of <span className="text-650">${(100_000).toLocaleString()}.</span>
+          contributing to <br /> your total <br /> trading volume <br /> of <span className="text-650">${totalTradingVolume}.</span>
         </p>
       </div>
 
