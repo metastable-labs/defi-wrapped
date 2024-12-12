@@ -6,8 +6,11 @@ import { Step1, Step2, Step3, Step4, Step5, Step6 } from '@/components/steps';
 import Logo from '@/assets/logo';
 import Clouds from '@/assets/clouds';
 import { appearAnimation } from '@/utils/helpers';
+import { useAccount } from 'wagmi';
 
 export default function Home() {
+  const { isConnected, address } = useAccount();
+
   const [step, setStep] = useState(0);
   const [shouldTransitionToSix, setShouldTransitionToSix] = useState(false);
   const [footerTextColor, setFooterTextColor] = useState('text-150');
@@ -45,12 +48,16 @@ export default function Home() {
   useEffect(() => {
     const timer = setTimeout(() => {
       if (step === 0) {
-        setStep(1);
+        if (isConnected && address) {
+          handleStep(2);
+        } else {
+          setStep(1);
+        }
       }
     }, 4000);
 
     return () => clearTimeout(timer);
-  }, [step]);
+  }, [step, isConnected, address]);
 
   useEffect(() => {
     if (shouldTransitionToSix) {

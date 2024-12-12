@@ -1,9 +1,17 @@
 import { motion } from 'framer-motion';
 import classNames from 'classnames';
 
-import useTruncateText from '@/hooks/useTruncateText';
 import { DisconnectIcon } from '@/public/icons';
 import { DWClickAnimation } from '@/components/UI';
+import { useAccount } from 'wagmi';
+import { useMemo } from 'react';
+
+const truncate = (str: string, startChars = 5, endChars = 5) => {
+  if (str.length <= startChars + endChars) {
+    return str;
+  }
+  return `${str.substring(0, startChars)}...${str.substring(str.length - endChars)}`;
+};
 
 const getDisconnectColor = (step: number) => {
   if (step <= 2) return '#710E21';
@@ -12,7 +20,15 @@ const getDisconnectColor = (step: number) => {
 };
 
 const Header = ({ step, timer, totalSteps }: HeaderProps) => {
-  const { truncatedText } = useTruncateText('0x1234567890123456789012345678901234567890', 5, 4);
+  const { address } = useAccount();
+
+  const truncatedText = useMemo(() => {
+    if (address !== undefined) {
+      return truncate(address);
+    }
+    return undefined;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [address]);
 
   return (
     <div className="w-full flex flex-col gap-1 pt-8 px-4 relative z-50">
