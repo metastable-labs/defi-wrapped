@@ -1,21 +1,29 @@
 import Image from 'next/image';
+import { motion } from 'framer-motion';
 
 import { StarIcon } from '@/public/icons';
+import { slideInFromTopToSettle, slideInFromBottomToSettle } from '@/utils/helpers';
 
 const Step13 = () => {
   return (
     <div className="h-full w-full flex flex-col items-center relative pt-60 gap-16">
       <div className="relative">
-        <p className="text-[38px] leading-[40.28px] text-center text-white font-medium">
+        <motion.p {...slideInFromTopToSettle} className="text-[38px] leading-[40.28px] text-center text-white font-medium">
           You&apos;ve <br /> mastered the <br /> art of capital <br /> efficiency this <br /> year
-        </p>
+        </motion.p>
 
         <div className="absolute top-[76px] left-10 z-10">
           <StarIcon duration={6} width={17} height={17} />
         </div>
       </div>
 
-      <div className="relative">
+      <motion.div
+        {...slideInFromBottomToSettle}
+        transition={{
+          delay: 1,
+        }}
+        className="relative"
+      >
         <Image src={'/images/money-bag.png'} alt="money bag" width={229} height={255} quality={100} className="object-cover" />
 
         <div className="absolute top-2 left-[86px] z-10 rotate-45">
@@ -33,7 +41,7 @@ const Step13 = () => {
         <div className="absolute bottom-1 -right-5 z-10">
           <StarIcon duration={8} width={11} height={11} />
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 };

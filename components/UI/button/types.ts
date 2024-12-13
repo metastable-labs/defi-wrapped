@@ -4,4 +4,5 @@ interface IDWButton {
   loading?: boolean;
   variant?: 'primary' | 'secondary';
   disabled?: boolean;
+  bounceOnRender?: boolean;
 }

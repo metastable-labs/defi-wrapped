@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import classNames from 'classnames';
 
-const DWButton = ({ title, disabled, loading, onClick, variant = 'primary' }: IDWButton) => (
+const DWButton = ({ title, disabled, loading, onClick, variant = 'primary', bounceOnRender }: IDWButton) => (
   <motion.button
     disabled={disabled || loading}
     onClick={onClick}
@@ -12,6 +12,18 @@ const DWButton = ({ title, disabled, loading, onClick, variant = 'primary' }: ID
       'bg-background-200 border-200 text': variant === 'primary',
       'bg-300 border-50': variant === 'secondary',
     })}
+    initial={bounceOnRender ? { y: -100, opacity: 0 } : undefined}
+    animate={bounceOnRender ? { y: 0, opacity: 1 } : undefined}
+    transition={
+      bounceOnRender
+        ? {
+            type: 'spring',
+            stiffness: 500,
+            damping: 20,
+            opacity: { duration: 0.3 },
+          }
+        : undefined
+    }
   >
     {title}
   </motion.button>

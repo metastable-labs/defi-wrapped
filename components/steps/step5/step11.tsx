@@ -1,4 +1,13 @@
+import { motion } from 'framer-motion';
+
 import useSystemFunctions from '@/hooks/useSystemFunctions';
+import {
+  slideInFromTopToSettle,
+  slideInFromBottomToSettle,
+  slideInFromLeftToSettle,
+  slideInFromRightToSettle,
+  growInAnimation,
+} from '@/utils/helpers';
 
 const Step11 = () => {
   const {
@@ -9,23 +18,37 @@ const Step11 = () => {
   const aero = 6_000?.toLocaleString();
   return (
     <div className="h-full w-full flex flex-col gap-2.5 justify-center items-center relative">
-      <span className="text-[38px] leading-[40.28px] text-center text-50 font-medium">You earned</span>
+      <motion.span {...slideInFromTopToSettle} className="text-[38px] leading-[40.28px] text-center text-50 font-medium">
+        You earned
+      </motion.span>
 
-      <div className="px-4 h-[62px] rounded-[40px] bg-400 border-[3px] border-50 flex items-center justify-center">
+      <motion.div
+        {...slideInFromRightToSettle}
+        transition={{ delay: 1 }}
+        className="px-4 h-[62px] rounded-[40px] bg-400 border-[3px] border-50 flex items-center justify-center"
+      >
         <span className="text-[38px] leading-[40.28px] text-center text-50 font-medium">${earned}</span>
-      </div>
+      </motion.div>
 
-      <p className="text-[38px] leading-[40.28px] text-center text-50 font-medium">
+      <motion.p
+        {...slideInFromLeftToSettle}
+        transition={{ delay: 1.5 }}
+        className="text-[38px] leading-[40.28px] text-center text-50 font-medium"
+      >
         amount from <br /> trading fees <br /> and
-      </p>
+      </motion.p>
 
-      <div className="px-4 h-[62px] rounded-[40px] bg-750 border-[3px] border-50 flex items-center justify-center">
+      <motion.div
+        {...slideInFromBottomToSettle}
+        transition={{ delay: 2 }}
+        className="px-4 h-[62px] rounded-[40px] bg-750 border-[3px] border-50 flex items-center justify-center"
+      >
         <span className="text-[38px] leading-[40.28px] text-center text-50 font-medium">{aero} AERO</span>
-      </div>
+      </motion.div>
 
-      <p className="text-[38px] leading-[40.28px] text-center text-650 font-medium">
+      <motion.p transition={{ delay: 3 }} {...growInAnimation} className="text-[38px] leading-[40.28px] text-center text-650 font-medium">
         <span className="text-50">from</span> Aero <br /> token <br /> Emissions
-      </p>
+      </motion.p>
     </div>
   );
 };
