@@ -8,13 +8,16 @@ const Step2 = ({ onNext }: StepProps) => {
   const { isConnected, address } = useAccount();
 
   const handleConnect = () => {
-    openConnectModal && openConnectModal();
+    if (openConnectModal) {
+      openConnectModal();
+    }
   };
 
   useEffect(() => {
     if (isConnected && address) {
       onNext?.();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isConnected, address]);
 
   return (

@@ -1,5 +1,5 @@
 'use client';
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useMemo } from 'react';
 import { useSwipeable } from 'react-swipeable';
 import classNames from 'classnames';
 import { toPng } from 'html-to-image';
@@ -7,10 +7,26 @@ import { DisconnectIcon, ArrowLeftCircleIcon, ArrowRightCircleIcon, StarIcon } f
 import useTruncateText from '@/hooks/useTruncateText';
 import { DWClickAnimation } from '../UI';
 import useSystemFunctions from '@/hooks/useSystemFunctions';
+import { useAccount } from 'wagmi';
+
+const truncate = (str: string, startChars = 5, endChars = 5) => {
+  if (str.length <= startChars + endChars) {
+    return str;
+  }
+  return `${str.substring(0, startChars)}...${str.substring(str.length - endChars)}`;
+};
 
 const Step6 = ({ onPrev, setShouldTransitionToSix }: StepProps) => {
+  const { address } = useAccount();
   const [step, setSteps] = useState(0);
-  const { truncatedText } = useTruncateText('0x1234567890123456789012345678901234567890', 5, 4);
+
+  const truncatedText = useMemo(() => {
+    if (address !== undefined) {
+      return truncate(address);
+    }
+    return undefined;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [address]);
 
   const {
     metricsState: { metrics },
