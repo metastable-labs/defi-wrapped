@@ -1,6 +1,15 @@
+import { motion } from 'framer-motion';
+
 import useSystemFunctions from '@/hooks/useSystemFunctions';
 import CoinsStacked from '@/assets/coins-stacked';
 import { StarIcon } from '@/public/icons';
+import {
+  slideInFromBottomToSettle,
+  slideInFromLeftToSettle,
+  slideInFromTopToSettle,
+  slideInFromRightToSettle,
+  growInAnimation,
+} from '@/utils/helpers';
 
 const Step5 = () => {
   const {
@@ -11,31 +20,59 @@ const Step5 = () => {
   const averageTransaction = metrics?.transactionActivity.averageTransactionValue?.toLocaleString();
   return (
     <div className="h-full w-full flex flex-col gap-2 justify-center items-center relative">
-      <h1 className="text-[38px] leading-[40.28px] text-center text-50 font-medium">You executed</h1>
+      <motion.h1 {...slideInFromTopToSettle} className="text-[38px] leading-[40.28px] text-center text-50 font-medium">
+        You executed
+      </motion.h1>
 
-      <div className="px-4 h-[62px] rounded-[40px] bg-white border-[3px] border-50 flex items-center justify-center relative">
+      <motion.div
+        transition={{
+          delay: 1,
+        }}
+        {...slideInFromLeftToSettle}
+        className="px-4 h-[62px] rounded-[40px] bg-white border-[3px] border-50 flex items-center justify-center relative"
+      >
         <span className="text-[38px] leading-[40.28px] text-center text-50 font-medium">{transactions}</span>
 
         <div className="absolute -bottom-5 -left-3 z-10 scale-50">
           <StarIcon duration={3} />
         </div>
-      </div>
+      </motion.div>
 
-      <p className="text-[38px] leading-[40.28px] text-center text-650 font-medium">
+      <motion.p
+        {...slideInFromBottomToSettle}
+        transition={{
+          delay: 2,
+        }}
+        className="text-[38px] leading-[40.28px] text-center text-650 font-medium"
+      >
         transactions <br /> this year <br /> <span className="text-50">averaging</span>
-      </p>
+      </motion.p>
 
-      <div className="px-4 h-[62px] rounded-[40px] bg-white border-[3px] border-50 flex items-center justify-center relative">
+      <motion.div
+        {...slideInFromRightToSettle}
+        transition={{
+          delay: 3,
+        }}
+        className="px-4 h-[62px] rounded-[40px] bg-white border-[3px] border-50 flex items-center justify-center relative"
+      >
         <span className="text-[38px] leading-[40.28px] text-center text-50 font-medium">${averageTransaction}</span>
 
         <div className="absolute top-2.5 -right-4 scale-95">
           <StarIcon duration={10} />
         </div>
-      </div>
+      </motion.div>
 
-      <span className="text-[38px] leading-[40.28px] text-center text-50 font-medium">each</span>
+      <motion.span
+        {...growInAnimation}
+        transition={{
+          delay: 3.2,
+        }}
+        className="text-[38px] leading-[40.28px] text-center text-50 font-medium"
+      >
+        each
+      </motion.span>
 
-      <div className="-mt-5 relative">
+      <motion.div initial={{ y: 100, opacity: 0 }} animate={{ y: 0, opacity: 1, transition: { delay: 3 } }} className="-mt-5 relative">
         <CoinsStacked />
 
         <div className="absolute bottom-20 left-9 z-10">
@@ -49,7 +86,7 @@ const Step5 = () => {
         <div className="absolute bottom-14 -right-4 scale-[.40] z-10">
           <StarIcon duration={4} />
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 };

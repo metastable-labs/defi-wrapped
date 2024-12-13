@@ -26,12 +26,12 @@ const Step5Wrapper = ({ setFooterTextColor, setShouldTransitionToSix, showStepFi
   const [step, setStep] = useState(0);
   const [timer, setTimer] = useState(0);
   const totalSteps = 16;
-  const stepDuration = 4;
+  const stepDuration = 5;
 
   const intervalRef = useRef<number | null>(null);
   const currentStepRef = useRef(0);
   const allowAdvanceRef = useRef(true);
-  const transitionPendingRef = useRef(false); // Prevent double updates
+  const transitionPendingRef = useRef(false);
 
   const steps = [
     <Step1 key={0} />,
@@ -146,7 +146,7 @@ const Step5Wrapper = ({ setFooterTextColor, setShouldTransitionToSix, showStepFi
             onClick={onClick}
             className={classNames('w-1/2 flex items-center h-full', {
               'justify-end': index === 1,
-              invisible: index === 0 && step === 0,
+              invisible: (index === 0 && step === 0) || (index === 1 && step === totalSteps - 1),
             })}
           >
             <DWClickAnimation>{icon}</DWClickAnimation>

@@ -3,7 +3,14 @@ import { motion } from 'framer-motion';
 import CircleStack from '@/assets/circle-stack';
 import { StarIcon } from '@/public/icons';
 import useSystemFunctions from '@/hooks/useSystemFunctions';
-import { generateConsistentColor } from '@/utils/helpers';
+import {
+  generateConsistentColor,
+  slideInFromBottomToSettle,
+  slideInFromLeftToSettle,
+  slideInFromTopToSettle,
+  slideInFromRightToSettle,
+  growInAnimation,
+} from '@/utils/helpers';
 
 const Step2 = () => {
   const {
@@ -15,24 +22,40 @@ const Step2 = () => {
   const mostFrequentDestinationCount = (metrics?.protocolUsage.interactionCounts[mostFrequentDestination!] || 0).toLocaleString();
   return (
     <div className="h-full w-full flex flex-col gap-2 justify-center items-center relative">
-      <h1 className="text-[38px] leading-[40.28px] text-center text-50 font-medium">
+      <motion.h1 {...slideInFromTopToSettle} className="text-[38px] leading-[40.28px] text-center text-50 font-medium">
         Your most <br /> frequent <br /> destination was
-      </h1>
+      </motion.h1>
 
-      <div
+      <motion.div
+        transition={{
+          delay: 1,
+        }}
+        {...slideInFromLeftToSettle}
         style={{
           backgroundColor: mostFrequentDestinationColor,
         }}
         className="px-4 h-[62px] rounded-[40px] border-[3px] border-50 flex items-center justify-center"
       >
         <span className="text-[38px] leading-[40.28px] text-center text-50 font-medium">{mostFrequentDestination}</span>
-      </div>
+      </motion.div>
 
-      <h1 className="text-[38px] leading-[40.28px] text-center text-50 font-medium">
+      <motion.h1
+        {...slideInFromBottomToSettle}
+        transition={{
+          delay: 2,
+        }}
+        className="text-[38px] leading-[40.28px] text-center text-50 font-medium"
+      >
         where you <br /> executed over
-      </h1>
+      </motion.h1>
 
-      <div className="px-4 h-[62px] rounded-[40px] bg-white border-[3px] border-50 flex items-center justify-center relative">
+      <motion.div
+        {...slideInFromRightToSettle}
+        transition={{
+          delay: 3,
+        }}
+        className="px-4 h-[62px] rounded-[40px] bg-white border-[3px] border-50 flex items-center justify-center relative"
+      >
         <span className="text-[38px] leading-[40.28px] text-center text-50 font-medium">{mostFrequentDestinationCount}</span>
 
         <div className="absolute -top-2 -right-3 scale-95">
@@ -42,9 +65,17 @@ const Step2 = () => {
         <div className="absolute -bottom-2 -left-3 scale-[.60]">
           <StarIcon />
         </div>
-      </div>
+      </motion.div>
 
-      <span className="text-[38px] leading-[40.28px] text-center text-600 font-medium">transactions</span>
+      <motion.span
+        {...growInAnimation}
+        transition={{
+          delay: 3.2,
+        }}
+        className="text-[38px] leading-[40.28px] text-center text-600 font-medium"
+      >
+        transactions
+      </motion.span>
 
       <div className="absolute bottom-28 right-[40%] scale-50 z-10">
         <StarIcon duration={5} />
