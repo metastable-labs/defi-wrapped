@@ -126,9 +126,15 @@ export default function Home() {
               >
                 <Logo />
               </motion.div>
-              <a href="https://useliquid.xyz" target="_blank" className={`text-xs font-medium ${footerTextColor}`}>
+
+              <motion.a
+                animate={{ opacity: step >= 5 ? 0 : 1 }}
+                href="https://useliquid.xyz"
+                target="_blank"
+                className={`text-xs font-medium ${footerTextColor}`}
+              >
                 Powered by useliquid.xyz
-              </a>
+              </motion.a>
             </motion.div>
           )}
         </AnimatePresence>

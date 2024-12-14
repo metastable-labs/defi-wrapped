@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 
 import useSystemFunctions from '@/hooks/useSystemFunctions';
+import useWindowHeight from '@/hooks/useWindowHeight';
 import CoinsStacked from '@/assets/coins-stacked';
 import { StarIcon } from '@/public/icons';
 import {
@@ -15,11 +16,17 @@ const Step5 = () => {
   const {
     metricsState: { metrics },
   } = useSystemFunctions();
+  const windowHeight = useWindowHeight();
 
   const transactions = metrics?.transactionActivity.totalTransactions?.toLocaleString();
   const averageTransaction = metrics?.transactionActivity.averageTransactionValue?.toLocaleString();
   return (
-    <div className="h-full w-full flex flex-col gap-2 justify-center items-center relative">
+    <div
+      className="h-full w-full flex flex-col gap-2 items-center relative"
+      style={{
+        paddingTop: `${windowHeight! * 0.2}px`,
+      }}
+    >
       <motion.h1 {...slideInFromTopToSettle} className="text-[38px] leading-[40.28px] text-center text-50 font-medium">
         You executed
       </motion.h1>
@@ -72,20 +79,29 @@ const Step5 = () => {
         each
       </motion.span>
 
-      <motion.div initial={{ y: 100, opacity: 0 }} animate={{ y: 0, opacity: 1, transition: { delay: 3 } }} className="-mt-5 relative">
-        <CoinsStacked />
+      <motion.div
+        initial={{ y: 100, opacity: 0 }}
+        animate={{ y: 0, opacity: 1, transition: { delay: 3 } }}
+        className="absolute"
+        style={{
+          bottom: windowHeight! < 700 ? `${-(windowHeight! * 0.1)}px` : `${windowHeight! * 0.03}px`,
+        }}
+      >
+        <motion.div className="relative">
+          <CoinsStacked />
 
-        <div className="absolute bottom-20 left-9 z-10">
-          <StarIcon duration={5} />
-        </div>
+          <div className="absolute bottom-20 left-9 z-10">
+            <StarIcon duration={5} />
+          </div>
 
-        <div className="absolute top-28 right-11 scale-[.65] z-10 rotate-45">
-          <StarIcon duration={6} />
-        </div>
+          <div className="absolute top-28 right-11 scale-[.65] z-10 rotate-45">
+            <StarIcon duration={6} />
+          </div>
 
-        <div className="absolute bottom-14 -right-4 scale-[.40] z-10">
-          <StarIcon duration={4} />
-        </div>
+          <div className="absolute bottom-14 -right-4 scale-[.40] z-10">
+            <StarIcon duration={4} />
+          </div>
+        </motion.div>
       </motion.div>
     </div>
   );

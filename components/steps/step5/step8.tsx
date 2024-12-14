@@ -1,12 +1,20 @@
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 
+import useWindowHeight from '@/hooks/useWindowHeight';
 import { StarIcon } from '@/public/icons';
 import { slideInFromTopToSettle, slideInFromBottomToSettle } from '@/utils/helpers';
 
 const Step8 = () => {
+  const windowHeight = useWindowHeight();
   return (
-    <div className="h-full w-full flex flex-col items-center relative pt-60 gap-16">
+    <div
+      className="h-full w-full flex flex-col items-center relative gap-16"
+      style={{
+        paddingTop: windowHeight! < 700 ? `${windowHeight! * 0.15}px` : `${windowHeight! * 0.2}px`,
+        gap: windowHeight! < 700 ? '40px' : '64px',
+      }}
+    >
       <div className="relative">
         <motion.h1 {...slideInFromTopToSettle} className="text-[55px] leading-[55px] text-center text-50 font-medium relative">
           Trading <br /> Patterns

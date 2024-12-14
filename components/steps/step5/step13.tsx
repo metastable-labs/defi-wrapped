@@ -3,10 +3,19 @@ import { motion } from 'framer-motion';
 
 import { StarIcon } from '@/public/icons';
 import { slideInFromTopToSettle, slideInFromBottomToSettle } from '@/utils/helpers';
+import useWindowHeight from '@/hooks/useWindowHeight';
 
 const Step13 = () => {
+  const windowHeight = useWindowHeight();
+
   return (
-    <div className="h-full w-full flex flex-col items-center relative pt-60 gap-16">
+    <div
+      className="h-full w-full flex flex-col items-center relative"
+      style={{
+        paddingTop: windowHeight! < 700 ? `${windowHeight! * 0.15}px` : `${windowHeight! * 0.2}px`,
+        gap: windowHeight! < 700 ? '40px' : '64px',
+      }}
+    >
       <div className="relative">
         <motion.p {...slideInFromTopToSettle} className="text-[38px] leading-[40.28px] text-center text-white font-medium">
           You&apos;ve <br /> mastered the <br /> art of capital <br /> efficiency this <br /> year

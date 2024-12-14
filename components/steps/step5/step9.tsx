@@ -2,6 +2,7 @@ import Image from 'next/image';
 import { motion } from 'framer-motion';
 
 import useSystemFunctions from '@/hooks/useSystemFunctions';
+import useWindowHeight from '@/hooks/useWindowHeight';
 import { StarIcon } from '@/public/icons';
 import { slideInFromTopToSettle, slideInFromRightToSettle, slideInFromBottomToSettle } from '@/utils/helpers';
 
@@ -9,12 +10,19 @@ const Step9 = () => {
   const {
     metricsState: { metrics },
   } = useSystemFunctions();
+  const windowHeight = useWindowHeight();
 
   const signatureTradingPair = metrics?.tradingMetrics.mostSwappedPairs[0];
   const totalTradingVolume = metrics?.tradingMetrics?.totalSwapped?.toLocaleString();
 
   return (
-    <div className="h-full w-full flex flex-col gap-14 items-center relative pt-52">
+    <div
+      className="h-full w-full flex flex-col items-center relative"
+      style={{
+        paddingTop: windowHeight! < 700 ? `${windowHeight! * 0.15}px` : `${windowHeight! * 0.2}px`,
+        gap: windowHeight! < 700 ? '4px' : '48px',
+      }}
+    >
       <div className="flex flex-col gap-3.5">
         <motion.p {...slideInFromTopToSettle} className="text-[38px] leading-[40.28px] text-center text-50 font-medium">
           Your signature <br /> trading pair was
@@ -45,7 +53,7 @@ const Step9 = () => {
         </motion.p>
       </div>
 
-      <motion.div initial={{ y: 100, scale: 0.5 }} animate={{ y: 0, scale: 1, transition: { delay: 3 } }}>
+      <motion.div initial={{ y: 100, scale: 0.5, opacity: 0 }} animate={{ y: -20, scale: 1, opacity: 1, transition: { delay: 3 } }}>
         <Image src={'/images/double-coins.png'} alt="double coins" width={300} height={269} quality={100} className="object-cover" />
       </motion.div>
     </div>

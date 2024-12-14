@@ -2,6 +2,7 @@ import Image from 'next/image';
 import { motion } from 'framer-motion';
 
 import useSystemFunctions from '@/hooks/useSystemFunctions';
+import useWindowHeight from '@/hooks/useWindowHeight';
 import { slideInFromBottomToSettle, slideInFromLeftToSettle, slideInFromRightToSettle, slideInFromTopToSettle } from '@/utils/helpers';
 import { StarIcon } from '@/public/icons';
 
@@ -9,11 +10,17 @@ const Step15 = () => {
   const {
     metricsState: { metrics },
   } = useSystemFunctions();
+  const windowHeight = useWindowHeight();
 
   const earned = metrics?.lendingBorrowing?.interest?.earned.toLocaleString();
 
   return (
-    <div className="h-full w-full flex flex-col gap-16 justify-center items-center relative">
+    <div
+      className="h-full w-full flex flex-col justify-center items-center relative"
+      style={{
+        gap: windowHeight! < 700 ? '40px' : '64px',
+      }}
+    >
       <div className="flex flex-col items-center justify-center gap-3.5">
         <div className="relative">
           <motion.p {...slideInFromTopToSettle} className="text-[38px] leading-[40.28px] text-center text-white font-medium">
