@@ -12,8 +12,8 @@ const Step13 = () => {
     <div
       className="h-full w-full flex flex-col items-center relative"
       style={{
-        paddingTop: windowHeight < 700 ? `${windowHeight * 0.15}px` : `${windowHeight * 0.2}px`,
-        gap: windowHeight < 700 ? '40px' : '64px',
+        paddingTop: windowHeight! < 700 ? `${windowHeight! * 0.15}px` : `${windowHeight! * 0.2}px`,
+        gap: windowHeight! < 700 ? '40px' : '64px',
       }}
     >
       <div className="relative">

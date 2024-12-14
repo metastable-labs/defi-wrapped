@@ -16,8 +16,8 @@ const Step10 = () => {
     <div
       className="h-full w-full flex flex-col items-center relative"
       style={{
-        paddingTop: windowHeight < 700 ? `${windowHeight * 0.15}px` : `${windowHeight * 0.2}px`,
-        gap: windowHeight < 700 ? '64px' : '48px',
+        paddingTop: windowHeight! < 700 ? `${windowHeight! * 0.15}px` : `${windowHeight! * 0.2}px`,
+        gap: windowHeight! < 700 ? '64px' : '48px',
       }}
     >
       <motion.p {...slideInFromTopToSettle} className="text-[38px] leading-[40.28px] text-center text-50 font-medium">
@@ -100,7 +100,7 @@ const Step10 = () => {
           animate={{ y: 0, transition: { delay: 1 } }}
           className="absolute w-full flex flex-col items-center justify-center top-0"
           style={{
-            height: windowHeight < 700 ? '300px' : '364px',
+            height: windowHeight! < 700 ? '300px' : '364px',
           }}
         >
           <div className="flex-1 w-4 bg-white border-t-[3px] border-x-[3px] border-black" />

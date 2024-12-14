@@ -12,7 +12,7 @@ const useWindowHeight = () => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  return windowHeight;
+  return windowHeight!;
 };
 
 export default useWindowHeight;

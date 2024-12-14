@@ -19,7 +19,7 @@ const Step1 = ({ onNext }: StepProps) => {
   const windowHeight = useWindowHeight();
 
   return (
-    <div className="bg-background-50 relative overflow-hidden" style={{ height: `${windowHeight}px`, maxHeight: `${windowHeight}px` }}>
+    <div className="bg-background-50 relative overflow-hidden" style={{ height: `${windowHeight!}px`, maxHeight: `${windowHeight!}px` }}>
       <div className="pt-16 flex flex-col items-center justify-center">
         <div className="relative mt-[86px]">
           <h1 className="z-10 text-[65px] leading-[60px] text-center text-50 font-medium custom-font-feature">

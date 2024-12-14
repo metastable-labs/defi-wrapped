@@ -32,7 +32,7 @@ const Step3 = ({ onNext }: StepProps) => {
   return (
     <div
       className="bg-background-250 overflow-hidden flex flex-col pt-40 items-center gap-4"
-      style={{ height: `${windowHeight}px`, maxHeight: `${windowHeight}px` }}
+      style={{ height: `${windowHeight!}px`, maxHeight: `${windowHeight!}px` }}
     >
       <Image alt="animation loader" className="bg-transparent" src="/images/loading.gif" width={220} height={220} />
       <p className="text-sm font-medium text-50 w-[45%] text-center">Please wait while we get your information...</p>

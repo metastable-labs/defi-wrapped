@@ -24,7 +24,7 @@ const Step14 = () => {
     <div
       className="h-full w-full flex flex-col gap-3.5 justify-between items-center relative"
       style={{
-        paddingTop: windowHeight < 700 ? `${windowHeight * 0.15}px` : `${windowHeight * 0.2}px`,
+        paddingTop: windowHeight! < 700 ? `${windowHeight! * 0.15}px` : `${windowHeight! * 0.2}px`,
       }}
     >
       <div className="flex flex-col items-center justify-center gap-3.5">

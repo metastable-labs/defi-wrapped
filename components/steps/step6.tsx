@@ -166,7 +166,7 @@ const Step6 = ({ onPrev, setShouldTransitionToSix }: StepProps) => {
     <div
       {...swipeHandlers}
       className="bg-background-250 overflow-hidden relative pt-8 flex flex-col"
-      style={{ height: `${windowHeight}px`, maxHeight: `${windowHeight}px` }}
+      style={{ height: `${windowHeight!}px`, maxHeight: `${windowHeight!}px` }}
     >
       <div className="flex justify-between items-center px-4">
         <h3 className="text-50 text-[14px] leading-[18.48px] font-medium transition-colors duration-500">DeFi Wrapped</h3>

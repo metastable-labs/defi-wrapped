@@ -136,7 +136,7 @@ const Step5Wrapper = ({ setFooterTextColor, setShouldTransitionToSix, showStepFi
         'bg-300': step > 6 && step <= 10,
         'bg-500': step > 10 && step <= 15,
       })}
-      style={{ height: `${windowHeight}px`, maxHeight: `${windowHeight}px` }}
+      style={{ height: `${windowHeight!}px`, maxHeight: `${windowHeight!}px` }}
     >
       <Header step={step} timer={timer} totalSteps={totalSteps} />
 

@@ -26,7 +26,7 @@ const Step2 = ({ onNext }: StepProps) => {
   return (
     <div
       className="bg-background-150 overflow-hidden flex flex-col relative"
-      style={{ height: `${windowHeight}px`, maxHeight: `${windowHeight}px` }}
+      style={{ height: `${windowHeight!}px`, maxHeight: `${windowHeight!}px` }}
     >
       <div className="relative flex justify-center">
         <Image src={'/images/colors.png'} alt="colors" width={300} height={300} className="object-cover w-full" />
@@ -35,7 +35,7 @@ const Step2 = ({ onNext }: StepProps) => {
       <div
         className="w-full flex flex-col items-center gap-[10px] z-50 absolute left-0"
         style={{
-          top: windowHeight < 700 ? '70%' : '50%',
+          top: windowHeight! < 700 ? '70%' : '50%',
         }}
       >
         <button

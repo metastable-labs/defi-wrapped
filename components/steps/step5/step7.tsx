@@ -18,7 +18,7 @@ const Step7 = () => {
     <div
       className="h-full w-full flex flex-col gap-8 items-center justify-between relative"
       style={{
-        paddingTop: windowHeight < 700 ? `${windowHeight * 0.15}px` : `${windowHeight * 0.2}px`,
+        paddingTop: windowHeight! < 700 ? `${windowHeight! * 0.15}px` : `${windowHeight! * 0.2}px`,
       }}
     >
       <div className="flex flex-col gap-3.5">
@@ -58,7 +58,7 @@ const Step7 = () => {
         animate={{ x: 0, opacity: 1, transition: { delay: 3 } }}
         className="absolute left-0"
         style={{
-          bottom: windowHeight < 700 ? `${windowHeight * 0.05}px` : `${windowHeight * 0.09}px`,
+          bottom: windowHeight! < 700 ? `${windowHeight! * 0.05}px` : `${windowHeight! * 0.09}px`,
         }}
       >
         <Image src="/images/search-pie.png" alt="Search Pie" width={350} height={350} className="object-cover w-full" />

@@ -10,8 +10,8 @@ const Step12 = () => {
     <div
       className="h-full w-full flex flex-col items-center relative"
       style={{
-        paddingTop: windowHeight < 700 ? `${windowHeight * 0.25}px` : `${windowHeight * 0.3}px`,
-        gap: windowHeight < 700 ? '40px' : '64px',
+        paddingTop: windowHeight! < 700 ? `${windowHeight! * 0.25}px` : `${windowHeight! * 0.3}px`,
+        gap: windowHeight! < 700 ? '40px' : '64px',
       }}
     >
       <motion.h1 {...slideInFromTopToSettle} className="text-[55px] leading-[55px] text-center text-white font-medium relative z-50">

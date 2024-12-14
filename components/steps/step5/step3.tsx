@@ -103,7 +103,7 @@ const Step3 = () => {
           animate={{ y: 0, transition: { delay: 1 } }}
           className="absolute w-full h-full flex items-end justify-center z-0"
           style={{
-            top: windowHeight < 700 ? '50%' : windowHeight < 750 ? '40%' : '5%',
+            top: windowHeight! < 700 ? '50%' : windowHeight! < 750 ? '40%' : '5%',
           }}
         >
           <Image src={'/images/ladder.png'} alt="Ladder" width={300} height={300} className="object-cover" />

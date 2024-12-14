@@ -24,7 +24,7 @@ const Step5 = () => {
     <div
       className="h-full w-full flex flex-col gap-2 items-center relative"
       style={{
-        paddingTop: `${windowHeight * 0.2}px`,
+        paddingTop: `${windowHeight! * 0.2}px`,
       }}
     >
       <motion.h1 {...slideInFromTopToSettle} className="text-[38px] leading-[40.28px] text-center text-50 font-medium">
@@ -84,7 +84,7 @@ const Step5 = () => {
         animate={{ y: 0, opacity: 1, transition: { delay: 3 } }}
         className="absolute"
         style={{
-          bottom: windowHeight < 700 ? `${-(windowHeight * 0.1)}px` : `${windowHeight * 0.03}px`,
+          bottom: windowHeight! < 700 ? `${-(windowHeight! * 0.1)}px` : `${windowHeight! * 0.03}px`,
         }}
       >
         <motion.div className="relative">
