@@ -4,10 +4,17 @@ import { motion } from 'framer-motion';
 import Message from '@/assets/message';
 import Plane from '@/assets/plane';
 import { slideInFromBottomToSettle, slideInFromTopToSettle } from '@/utils/helpers';
+import useWindowHeight from '@/hooks/useWindowHeight';
 
 const Step4 = () => {
+  const windowHeight = useWindowHeight();
   return (
-    <div className="h-full w-full flex flex-col items-center relative pt-80 gap-10">
+    <div
+      className="h-full w-full flex flex-col items-center relative gap-10"
+      style={{
+        paddingTop: `${windowHeight * 0.3}px`,
+      }}
+    >
       <motion.h1 {...slideInFromTopToSettle} className="text-[55px] leading-[55px] text-center text-50 font-medium relative z-50">
         Transaction <br /> Highlights
       </motion.h1>

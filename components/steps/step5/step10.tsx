@@ -1,17 +1,25 @@
 import { motion } from 'framer-motion';
 
 import useSystemFunctions from '@/hooks/useSystemFunctions';
+import useWindowHeight from '@/hooks/useWindowHeight';
 import { generateConsistentColor, slideInFromTopToSettle } from '@/utils/helpers';
 
 const Step10 = () => {
   const {
     metricsState: { metrics },
   } = useSystemFunctions();
+  const windowHeight = useWindowHeight();
 
   const showLiquidityPools = Boolean(metrics?.tradingMetrics.liquidityPools.length);
 
   return (
-    <div className="h-full w-full flex flex-col gap-14 items-center relative pt-52">
+    <div
+      className="h-full w-full flex flex-col items-center relative"
+      style={{
+        paddingTop: windowHeight < 700 ? `${windowHeight * 0.15}px` : `${windowHeight * 0.2}px`,
+        gap: windowHeight < 700 ? '64px' : '48px',
+      }}
+    >
       <motion.p {...slideInFromTopToSettle} className="text-[38px] leading-[40.28px] text-center text-50 font-medium">
         You provided <br /> <span className="text-650">liquidity</span> to pools
       </motion.p>
@@ -90,7 +98,10 @@ const Step10 = () => {
         <motion.div
           initial={{ y: '100vh' }}
           animate={{ y: 0, transition: { delay: 1 } }}
-          className="absolute w-full h-[364px] flex flex-col items-center justify-center top-0"
+          className="absolute w-full flex flex-col items-center justify-center top-0"
+          style={{
+            height: windowHeight < 700 ? '300px' : '364px',
+          }}
         >
           <div className="flex-1 w-4 bg-white border-t-[3px] border-x-[3px] border-black" />
           <div className="w-[90px] h-5 bg-white border-[3px] border-black" />

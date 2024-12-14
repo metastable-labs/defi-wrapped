@@ -2,6 +2,7 @@ import Image from 'next/image';
 import { motion } from 'framer-motion';
 
 import useSystemFunctions from '@/hooks/useSystemFunctions';
+import useWindowHeight from '@/hooks/useWindowHeight';
 import {
   slideInFromTopToSettle,
   slideInFromBottomToSettle,
@@ -15,11 +16,17 @@ const Step14 = () => {
   const {
     metricsState: { metrics },
   } = useSystemFunctions();
+  const windowHeight = useWindowHeight();
 
   const lent = metrics?.lendingBorrowing?.totalSupplied.toLocaleString();
   const borrowed = metrics?.lendingBorrowing?.totalBorrowed.toLocaleString();
   return (
-    <div className="h-full w-full flex flex-col gap-3.5 justify-between items-center relative pt-60">
+    <div
+      className="h-full w-full flex flex-col gap-3.5 justify-between items-center relative"
+      style={{
+        paddingTop: windowHeight < 700 ? `${windowHeight * 0.15}px` : `${windowHeight * 0.2}px`,
+      }}
+    >
       <div className="flex flex-col items-center justify-center gap-3.5">
         <motion.h1 {...slideInFromTopToSettle} className="text-[38px] leading-[40.28px] text-center text-white font-medium">
           You lent

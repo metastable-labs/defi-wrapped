@@ -1,4 +1,6 @@
 import { motion } from 'framer-motion';
+
+import useWindowHeight from '@/hooks/useWindowHeight';
 import GlassesIcon from '@/assets/glasses';
 import DollarIcon from '@/assets/dollar';
 import { StarIcon } from '@/public/icons';
@@ -14,8 +16,10 @@ const boxes = [
 ];
 
 const Step1 = ({ onNext }: StepProps) => {
+  const windowHeight = useWindowHeight();
+
   return (
-    <div className="bg-background-50 h-screen max-h-screen relative overflow-hidden">
+    <div className="bg-background-50 relative overflow-hidden" style={{ height: `${windowHeight}px`, maxHeight: `${windowHeight}px` }}>
       <div className="pt-16 flex flex-col items-center justify-center">
         <div className="relative mt-[86px]">
           <h1 className="z-10 text-[65px] leading-[60px] text-center text-50 font-medium custom-font-feature">

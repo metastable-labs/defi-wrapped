@@ -4,11 +4,13 @@ import { motion } from 'framer-motion';
 import { StarIcon } from '@/public/icons';
 import useSystemFunctions from '@/hooks/useSystemFunctions';
 import { generateConsistentColor, slideInFromRightToSettle, slideInFromTopToSettle } from '@/utils/helpers';
+import useWindowHeight from '@/hooks/useWindowHeight';
 
 const Step3 = () => {
   const {
     metricsState: { metrics },
   } = useSystemFunctions();
+  const windowHeight = useWindowHeight();
 
   const mostUsedProtocols = metrics?.protocolUsage?.mostUsedProtocols;
 
@@ -23,7 +25,7 @@ const Step3 = () => {
       <motion.p
         {...slideInFromRightToSettle}
         transition={{ delay: 1 }}
-        className="text-[38px] leading-[40.28px] text-center text-50 font-medium"
+        className="text-[38px] leading-[40.28px] text-center text-50 font-medium relative z-20"
       >
         <span className="text-600">Top 5</span> DeFi <br /> destinations of <br /> 2024
       </motion.p>
@@ -100,6 +102,9 @@ const Step3 = () => {
           initial={{ y: '100vh' }}
           animate={{ y: 0, transition: { delay: 1 } }}
           className="absolute w-full h-full flex items-end justify-center z-0"
+          style={{
+            top: windowHeight < 700 ? '50%' : windowHeight < 750 ? '40%' : '5%',
+          }}
         >
           <Image src={'/images/ladder.png'} alt="Ladder" width={300} height={300} className="object-cover" />
         </motion.div>

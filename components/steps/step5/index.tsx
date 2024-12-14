@@ -2,6 +2,8 @@ import { useState, useEffect, useRef } from 'react';
 import classNames from 'classnames';
 import { AnimatePresence, motion } from 'framer-motion';
 
+import useWindowHeight from '@/hooks/useWindowHeight';
+
 import { ArrowLeftCircleIcon, ArrowRightCircleIcon } from '@/public/icons';
 import { DWClickAnimation } from '@/components/UI';
 import Header from './header';
@@ -25,6 +27,7 @@ import Step16 from './step16';
 const Step5Wrapper = ({ setFooterTextColor, setShouldTransitionToSix, showStepFiveLastStep, setShowStepFiveLastStep }: StepProps) => {
   const [step, setStep] = useState(0);
   const [timer, setTimer] = useState(0);
+  const windowHeight = useWindowHeight();
   const totalSteps = 16;
   const stepDuration = 5;
 
@@ -127,12 +130,13 @@ const Step5Wrapper = ({ setFooterTextColor, setShouldTransitionToSix, showStepFi
 
   return (
     <div
-      className={classNames('h-screen max-h-screen overflow-hidden flex flex-col relative', {
+      className={classNames('flex flex-col relative', {
         'bg-400': step <= 2,
         'bg-450': (step > 2 && step <= 6) || (step > 10 && step <= 15),
         'bg-300': step > 6 && step <= 10,
         'bg-500': step > 10 && step <= 15,
       })}
+      style={{ height: `${windowHeight}px`, maxHeight: `${windowHeight}px` }}
     >
       <Header step={step} timer={timer} totalSteps={totalSteps} />
 

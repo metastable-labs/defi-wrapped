@@ -3,11 +3,12 @@ import { useState, useRef, useEffect, useMemo } from 'react';
 import { useSwipeable } from 'react-swipeable';
 import classNames from 'classnames';
 import { toPng } from 'html-to-image';
-import { DisconnectIcon, ArrowLeftCircleIcon, ArrowRightCircleIcon, StarIcon } from '@/public/icons';
-import useTruncateText from '@/hooks/useTruncateText';
-import { DWClickAnimation } from '../UI';
-import useSystemFunctions from '@/hooks/useSystemFunctions';
 import { useAccount } from 'wagmi';
+
+import { DisconnectIcon, StarIcon } from '@/public/icons';
+import useSystemFunctions from '@/hooks/useSystemFunctions';
+import useWindowHeight from '@/hooks/useWindowHeight';
+import { DWClickAnimation, DWHorizontalSnapScroll } from '../UI';
 
 const truncate = (str: string, startChars = 5, endChars = 5) => {
   if (str.length <= startChars + endChars) {
@@ -18,6 +19,7 @@ const truncate = (str: string, startChars = 5, endChars = 5) => {
 
 const Step6 = ({ onPrev, setShouldTransitionToSix }: StepProps) => {
   const { address } = useAccount();
+  const windowHeight = useWindowHeight();
   const [step, setSteps] = useState(0);
 
   const truncatedText = useMemo(() => {
@@ -40,70 +42,7 @@ const Step6 = ({ onPrev, setShouldTransitionToSix }: StepProps) => {
   const earned = metrics?.lendingBorrowing?.interest.earned?.toLocaleString();
   const lent = metrics?.lendingBorrowing?.totalSupplied?.toLocaleString();
 
-  const stepContainerRef = useRef<HTMLDivElement>(null);
   const boxRef = useRef<HTMLDivElement>(null);
-
-  const canGoBack = step > 0;
-  const canGoNext = step < 3;
-
-  const prev = () => {
-    if (canGoBack) {
-      setSteps((prevStep) => {
-        const newStep = prevStep - 1;
-        scrollToStep(newStep);
-        return newStep;
-      });
-    }
-  };
-
-  const next = () => {
-    if (canGoNext) {
-      setSteps((prevStep) => {
-        const newStep = prevStep + 1;
-        scrollToStep(newStep);
-        return newStep;
-      });
-    }
-  };
-
-  const scrollToStep = (newStep: number) => {
-    if (stepContainerRef.current) {
-      const stepDiv = stepContainerRef.current.children[newStep] as HTMLElement;
-      stepDiv.scrollIntoView({ behavior: 'smooth', inline: 'center' });
-    }
-  };
-
-  const handleScroll = () => {
-    if (stepContainerRef.current) {
-      const container = stepContainerRef.current;
-      const children = Array.from(container.children);
-      const scrollLeft = container.scrollLeft;
-
-      const closestIndex = children.reduce(
-        (closest, child, index) => {
-          const element = child as HTMLElement;
-          const childCenter = element.offsetLeft + element.offsetWidth / 2;
-          const containerCenter = scrollLeft + container.offsetWidth / 2;
-          const distance = Math.abs(containerCenter - childCenter);
-
-          return distance < closest.distance ? { index, distance } : closest;
-        },
-        { index: 0, distance: Infinity }
-      ).index;
-
-      setSteps(closestIndex);
-    }
-  };
-
-  useEffect(() => {
-    const container = stepContainerRef.current;
-    if (container) {
-      container.addEventListener('scroll', handleScroll, { passive: true });
-      return () => {
-        container.removeEventListener('scroll', handleScroll);
-      };
-    }
-  }, []);
 
   const handleShare = async () => {
     if (boxRef.current) {
@@ -224,82 +163,64 @@ const Step6 = ({ onPrev, setShouldTransitionToSix }: StepProps) => {
   }, []);
 
   return (
-    <>
-      <div {...swipeHandlers} className="bg-background-250 h-screen max-h-screen overflow-hidden relative pt-8 flex flex-col">
-        <div className="flex justify-between items-center px-4">
-          <h3 className="text-50 text-[14px] leading-[18.48px] font-medium transition-colors duration-500">DeFi Wrapped</h3>
-          <div className="flex items-center justify-center gap-1">
-            <div
-              className={classNames(
-                'px-[9px] h-[26px] bg-50 flex items-center justify-center rounded-[14px] text-550 text-[11px] leading-[13.64px] font-medium'
-              )}
-            >
-              {truncatedText}
-            </div>
-
-            <DWClickAnimation onClick={() => {}}>
-              <DisconnectIcon fill={'#1E293B'} />
-            </DWClickAnimation>
-          </div>
-        </div>
-
-        <div className="flex-1 pt-11 pb-24 flex flex-col gap-16 items-stretch justify-between">
-          <div className="flex flex-col gap-5 items-center">
-            <div className="h-[26px] px-5 rounded-full border border-black flex items-center justify-center">
-              <span className="text-xs text-50 font-medium">Summary</span>
-            </div>
-
-            <div
-              ref={stepContainerRef}
-              className="flex gap-5 overflow-x-scroll snap-x snap-mandatory scrollbar-hide text-[25px] leading-[29.75px] font-medium text-50 w-full px-14"
-            >
-              {steps.map((step_, index) => (
-                <div
-                  key={index}
-                  ref={index === step ? boxRef : null}
-                  className="flex flex-col items-center justify-center gap-1 rounded-[14px] border border-900 bg-950 shadow-primary p-4 min-w-[310px] min-h-[273px] snap-center"
-                >
-                  {step_}
-                </div>
-              ))}
-            </div>
-
-            <div className="flex items-center justify-center gap-[18px]">
-              {[
-                { icon: <ArrowLeftCircleIcon />, onClick: prev, disabled: !canGoBack },
-                { icon: <ArrowRightCircleIcon />, onClick: next, disabled: !canGoNext },
-              ].map(({ icon, onClick, disabled }, index) => (
-                <DWClickAnimation
-                  key={index}
-                  onClick={onClick}
-                  className={classNames('transition-all duration-500', {
-                    'opacity-50 pointer-events-none': disabled,
-                  })}
-                >
-                  {icon}
-                </DWClickAnimation>
-              ))}
-            </div>
+    <div
+      {...swipeHandlers}
+      className="bg-background-250 overflow-hidden relative pt-8 flex flex-col"
+      style={{ height: `${windowHeight}px`, maxHeight: `${windowHeight}px` }}
+    >
+      <div className="flex justify-between items-center px-4">
+        <h3 className="text-50 text-[14px] leading-[18.48px] font-medium transition-colors duration-500">DeFi Wrapped</h3>
+        <div className="flex items-center justify-center gap-1">
+          <div
+            className={classNames(
+              'px-[9px] h-[26px] bg-50 flex items-center justify-center rounded-[14px] text-550 text-[11px] leading-[13.64px] font-medium'
+            )}
+          >
+            {truncatedText}
           </div>
 
-          <div className="flex flex-col items-center gap-3 px-4">
-            <DWClickAnimation
-              className="h-[66px] px-20 rounded-[33px] bg-300 border-[1.5px] border-50 flex items-center justify-center"
-              onClick={handleShare}
-            >
-              <span className="text-[18px] leading-[23.76px] text-50 text-center font-bold">Share</span>
-            </DWClickAnimation>
-
-            <p className="text-150 text-xs font-medium text-center">
-              Liquid is making DeFi as simple as browsing <br /> a social feed. Join the waitlist{' '}
-              <a href="https://useliquid.xyz" target="_blank" className="underline underline-offset-2 text-600">
-                here
-              </a>
-            </p>
-          </div>
+          <DWClickAnimation onClick={() => {}}>
+            <DisconnectIcon fill={'#1E293B'} />
+          </DWClickAnimation>
         </div>
       </div>
-    </>
+
+      <div className="flex-1 pt-11 pb-24 flex flex-col gap-16 items-stretch justify-between">
+        <div className="flex flex-col gap-5 items-center">
+          <div className="h-[26px] px-5 rounded-full border border-black flex items-center justify-center">
+            <span className="text-xs text-50 font-medium">Summary</span>
+          </div>
+
+          <DWHorizontalSnapScroll step={step} setSteps={setSteps}>
+            {steps.map((step_, index) => (
+              <div
+                key={index}
+                ref={index === step ? boxRef : null}
+                className="flex flex-col items-center justify-center gap-1 rounded-[14px] border border-900 bg-950 shadow-primary p-4 min-w-[310px] min-h-[273px] snap-center"
+              >
+                {step_}
+              </div>
+            ))}
+          </DWHorizontalSnapScroll>
+        </div>
+
+        <div className="flex flex-col items-center gap-3 px-4">
+          <DWClickAnimation
+            className="h-[66px] px-20 rounded-[33px] bg-300 border-[1.5px] border-50 flex items-center justify-center"
+            onClick={handleShare}
+          >
+            <span className="text-[18px] leading-[23.76px] text-50 text-center font-bold">Share</span>
+          </DWClickAnimation>
+
+          <p className="text-150 text-xs font-medium text-center">
+            Liquid is making DeFi as simple as browsing <br /> a social feed. Join the waitlist{' '}
+            <a href="https://useliquid.xyz" target="_blank" className="underline underline-offset-2 text-600">
+              here
+            </a>
+          </p>
+        </div>
+      </div>
+    </div>
   );
 };
 

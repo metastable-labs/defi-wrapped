@@ -6,12 +6,12 @@ import { slideInFromTopToSettle, slideInFromLeftToSettle } from '@/utils/helpers
 
 const Step1 = () => {
   return (
-    <div className="h-full w-full flex flex-col items-center relative pt-60">
+    <div className="h-full w-full flex flex-col items-center relative pt-[24.35%]">
       <motion.h1 {...slideInFromTopToSettle} className="text-[55px] leading-[55px] text-center text-50 font-medium relative z-50">
         Protocol <br /> Mastery
       </motion.h1>
 
-      <motion.div {...slideInFromLeftToSettle} transition={{ delay: 1 }} className="absolute bottom-28 md:bottom-36 left-0">
+      <motion.div {...slideInFromLeftToSettle} transition={{ delay: 1 }} className="absolute bottom-[14.58%] left-0">
         <Image src={'/images/chess-king.png'} alt="Chess King" width={400} height={400} className="object-cover w-full h-full" />
       </motion.div>
 
