@@ -1,7 +1,6 @@
 import { motion } from 'framer-motion';
 
 import useSystemFunctions from '@/hooks/useSystemFunctions';
-import useWindowHeight from '@/hooks/useWindowHeight';
 import CoinsStacked from '@/assets/coins-stacked';
 import { StarIcon } from '@/public/icons';
 import {
@@ -15,8 +14,10 @@ import {
 const Step5 = () => {
   const {
     metricsState: { metrics },
+    appState: { windowInnerHeight },
   } = useSystemFunctions();
-  const windowHeight = useWindowHeight();
+
+  const iconHeight = windowInnerHeight! < 750 ? 240 : 282;
 
   const transactions = metrics?.transactionActivity.totalTransactions?.toLocaleString();
   const averageTransaction = metrics?.transactionActivity.averageTransactionValue?.toLocaleString();
@@ -24,10 +25,10 @@ const Step5 = () => {
     <div
       className="h-full w-full flex flex-col gap-2 items-center relative"
       style={{
-        paddingTop: `${windowHeight! * 0.2}px`,
+        paddingTop: `${windowInnerHeight! * 0.2}px`,
       }}
     >
-      <motion.h1 {...slideInFromTopToSettle} className="text-[38px] leading-[40.28px] text-center text-50 font-medium">
+      <motion.h1 {...slideInFromTopToSettle} className="text-32 md:text-38 text-center text-50 font-medium">
         You executed
       </motion.h1>
 
@@ -38,7 +39,7 @@ const Step5 = () => {
         {...slideInFromLeftToSettle}
         className="px-4 h-[62px] rounded-[40px] bg-white border-[3px] border-50 flex items-center justify-center relative"
       >
-        <span className="text-[38px] leading-[40.28px] text-center text-50 font-medium">{transactions}</span>
+        <span className="text-32 md:text-38 text-center text-50 font-medium">{transactions}</span>
 
         <div className="absolute -bottom-5 -left-3 z-10 scale-50">
           <StarIcon duration={3} />
@@ -50,7 +51,7 @@ const Step5 = () => {
         transition={{
           delay: 2,
         }}
-        className="text-[38px] leading-[40.28px] text-center text-650 font-medium"
+        className="text-32 md:text-38 text-center text-650 font-medium"
       >
         transactions <br /> this year <br /> <span className="text-50">averaging</span>
       </motion.p>
@@ -62,7 +63,7 @@ const Step5 = () => {
         }}
         className="px-4 h-[62px] rounded-[40px] bg-white border-[3px] border-50 flex items-center justify-center relative"
       >
-        <span className="text-[38px] leading-[40.28px] text-center text-50 font-medium">${averageTransaction}</span>
+        <span className="text-32 md:text-38 text-center text-50 font-medium">${averageTransaction}</span>
 
         <div className="absolute top-2.5 -right-4 scale-95">
           <StarIcon duration={10} />
@@ -74,7 +75,7 @@ const Step5 = () => {
         transition={{
           delay: 3.2,
         }}
-        className="text-[38px] leading-[40.28px] text-center text-50 font-medium"
+        className="text-32 md:text-38 text-center text-50 font-medium"
       >
         each
       </motion.span>
@@ -84,11 +85,11 @@ const Step5 = () => {
         animate={{ y: 0, opacity: 1, transition: { delay: 3 } }}
         className="absolute"
         style={{
-          bottom: windowHeight! < 700 ? `${-(windowHeight! * 0.1)}px` : `${windowHeight! * 0.03}px`,
+          bottom: windowInnerHeight! < 700 ? `${-(windowInnerHeight! * 0.1)}px` : `${windowInnerHeight! * 0.03}px`,
         }}
       >
         <motion.div className="relative">
-          <CoinsStacked />
+          <CoinsStacked height={iconHeight} />
 
           <div className="absolute bottom-20 left-9 z-10">
             <StarIcon duration={5} />

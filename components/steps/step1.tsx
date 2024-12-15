@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 
-import useWindowHeight from '@/hooks/useWindowHeight';
+import useSystemFunctions from '@/hooks/useSystemFunctions';
 import GlassesIcon from '@/assets/glasses';
 import DollarIcon from '@/assets/dollar';
 import { StarIcon } from '@/public/icons';
@@ -15,11 +15,16 @@ const boxes = [
   { text: 'Moonwell', color: '#C1FF2F', delay: 1, classes: 'bottom-[194px] md:bottom-[192px] right-0 px-[19px]', rotate: -2 },
 ];
 
-const Step1 = ({ onNext }: StepProps) => {
-  const windowHeight = useWindowHeight();
+const Step1 = () => {
+  const {
+    appState: { windowInnerHeight },
+  } = useSystemFunctions();
 
   return (
-    <div className="bg-background-50 relative overflow-hidden" style={{ height: `${windowHeight!}px`, maxHeight: `${windowHeight!}px` }}>
+    <div
+      className="bg-background-50 relative overflow-hidden"
+      style={{ height: `${windowInnerHeight!}px`, maxHeight: `${windowInnerHeight!}px` }}
+    >
       <div className="pt-16 flex flex-col items-center justify-center">
         <div className="relative mt-[86px]">
           <h1 className="z-10 text-[65px] leading-[60px] text-center text-50 font-medium custom-font-feature">

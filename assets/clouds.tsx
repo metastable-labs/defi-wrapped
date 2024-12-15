@@ -1,40 +1,76 @@
-const Clouds = ({ fill = '#B8D5FF' }: { fill?: string }) => (
-  <div className="w-[427px] h-[417px] relative">
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="6" viewBox="0 0 24 6" fill="none" className="absolute top-[75px] left-10">
-      <path
-        d="M24 5.16096C24 5.16096 23.1613 2.88615 20.4516 3.85085C20.4516 3.85085 18.6678 1.33745 15.3129 2.88614C15.3129 2.88614 13.9501 0.611328 9.82911 0.611328C5.80643 0.611328 4.19354 3.85085 4.19354 3.85085C4.19354 3.85085 0.387099 2.74149 0 5.16096H24Z"
-        fill={fill}
-      />
-    </svg>
+import { memo } from 'react';
+import { motion } from 'framer-motion';
 
-    <svg xmlns="http://www.w3.org/2000/svg" width="61" height="16" viewBox="0 0 61 16" fill="none" className="absolute top-1 -right-1.5">
-      <path
-        d="M81 15.355C81 15.355 78.1693 7.67751 69.0242 10.9334C69.0242 10.9334 63.0038 2.45065 51.6812 7.67751C51.6812 7.67751 47.0815 0 33.1732 0C19.5967 0 14.1532 10.9334 14.1532 10.9334C14.1532 10.9334 1.30646 7.18929 0 15.355H81Z"
-        fill={fill}
-      />
-    </svg>
+import { CloudIcon } from '@/public/icons';
 
-    <svg xmlns="http://www.w3.org/2000/svg" width="40" height="13" viewBox="0 0 40 13" fill="none" className="absolute -bottom-32">
-      <path
-        d="M39.4497 12.4072C39.4497 12.4072 37.1624 6.20359 29.773 8.83442C29.773 8.83442 24.9084 1.98018 15.7595 6.20359C15.7595 6.20359 12.0429 0 0.80468 0C-10.1655 0 -14.5639 8.83442 -14.5639 8.83442C-14.5639 8.83442 -24.9444 5.8091 -26 12.4072H39.4497Z"
-        fill={fill}
-      />
-    </svg>
+const Clouds = memo(({ fill = '#B8D5FF', numberOfClouds = 10 }: { fill?: string; numberOfClouds?: number }) => {
+  const generateClouds = (count: number) => {
+    const clouds = [];
+    const halfCount = Math.floor(count / 2);
+    let scaleOneCount = 0;
 
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="25"
-      height="11"
-      viewBox="0 0 25 11"
-      fill="none"
-      className="absolute -bottom-[120px] right-0"
-    >
-      <path
-        d="M51 10.4072C51 10.4072 49.2177 5.57325 43.4597 7.62325C43.4597 7.62325 39.669 2.28226 32.54 5.57324C32.54 5.57324 29.6439 0.739258 20.8869 0.739258C12.3387 0.739258 8.91127 7.62325 8.91127 7.62325C8.91127 7.62325 0.822585 5.26585 0 10.4072H51Z"
-        fill={fill}
-      />
-    </svg>
-  </div>
-);
+    for (let i = 0; i < count; i++) {
+      let scale;
+      if (scaleOneCount < 2 && Math.random() > 0.85) {
+        scale = 1;
+        scaleOneCount++;
+      } else {
+        scale = Math.random() * 0.35 + 0.65;
+      }
+
+      const isLeftToRight = i < halfCount;
+      const duration = Math.random() * 10 + 10;
+      const delay = Math.random() * 5;
+
+      const y = (() => {
+        if (i < 2) return `${Math.random() * 10 + 10}%`;
+        if (i >= count - 2) return `${Math.random() * 10 + 70}%`;
+        return `${Math.random() * 20 + 40}%`;
+      })();
+
+      clouds.push({
+        id: i,
+        x: isLeftToRight ? '-20%' : '110%',
+        y,
+        scale,
+        isLeftToRight,
+        duration,
+        delay,
+      });
+    }
+    return clouds;
+  };
+
+  const clouds = generateClouds(numberOfClouds);
+
+  return (
+    <div className="relative w-full h-full overflow-hidden">
+      {clouds.map((cloud) => (
+        <motion.div
+          key={cloud.id}
+          className="absolute"
+          style={{
+            top: cloud.y,
+            left: cloud.x,
+            scale: cloud.scale,
+          }}
+          animate={{
+            x: cloud.isLeftToRight ? '1100%' : '-1100%',
+          }}
+          transition={{
+            duration: cloud.duration,
+            delay: cloud.delay,
+            repeat: Infinity,
+            ease: 'linear',
+          }}
+        >
+          <CloudIcon fill={fill} />
+        </motion.div>
+      ))}
+    </div>
+  );
+});
+
+Clouds.displayName = 'Clouds';
 
 export default Clouds;

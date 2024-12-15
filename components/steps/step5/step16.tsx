@@ -20,7 +20,7 @@ const Step16 = () => {
     <div className="h-full w-full flex flex-col gap-16 justify-center items-center relative">
       <div className="flex flex-col items-center justify-center gap-3.5">
         <div className="relative">
-          <motion.p {...slideInFromTopToSettle} className="text-[38px] leading-[40.28px] text-center text-white font-medium">
+          <motion.p {...slideInFromTopToSettle} className="text-32 md:text-38 text-center text-white font-medium">
             While paying
           </motion.p>
 
@@ -34,14 +34,10 @@ const Step16 = () => {
           transition={{ delay: 1 }}
           className="px-6 h-[62px] rounded-[40px] bg-white border-[3px] border-50 flex items-center justify-center"
         >
-          <span className="text-[38px] leading-[40.28px] text-center text-50 font-medium">${paid}</span>
+          <span className="text-32 md:text-38 text-center text-50 font-medium">${paid}</span>
         </motion.div>
 
-        <motion.p
-          {...slideInFromRightToSettle}
-          transition={{ delay: 2 }}
-          className="text-[38px] leading-[40.28px] text-center text-white font-medium"
-        >
+        <motion.p {...slideInFromRightToSettle} transition={{ delay: 2 }} className="text-32 md:text-38 text-center text-white font-medium">
           in borrowing <br /> cost
         </motion.p>
       </div>

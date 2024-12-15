@@ -1,23 +1,25 @@
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 
+import useSystemFunctions from '@/hooks/useSystemFunctions';
 import { StarIcon } from '@/public/icons';
 import { slideInFromTopToSettle, slideInFromBottomToSettle } from '@/utils/helpers';
-import useWindowHeight from '@/hooks/useWindowHeight';
 
 const Step13 = () => {
-  const windowHeight = useWindowHeight();
+  const {
+    appState: { windowInnerHeight },
+  } = useSystemFunctions();
 
   return (
     <div
       className="h-full w-full flex flex-col items-center relative"
       style={{
-        paddingTop: windowHeight! < 700 ? `${windowHeight! * 0.15}px` : `${windowHeight! * 0.2}px`,
-        gap: windowHeight! < 700 ? '40px' : '64px',
+        paddingTop: windowInnerHeight! < 700 ? `${windowInnerHeight! * 0.15}px` : `${windowInnerHeight! * 0.2}px`,
+        gap: windowInnerHeight! < 700 ? '40px' : '64px',
       }}
     >
       <div className="relative">
-        <motion.p {...slideInFromTopToSettle} className="text-[38px] leading-[40.28px] text-center text-white font-medium">
+        <motion.p {...slideInFromTopToSettle} className="text-32 md:text-38 text-center text-white font-medium">
           You&apos;ve <br /> mastered the <br /> art of capital <br /> efficiency this <br /> year
         </motion.p>
 

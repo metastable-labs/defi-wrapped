@@ -44,6 +44,21 @@ export default {
         primary: '0px 8px 14px 0px rgba(193, 210, 235, 0.47)',
       },
     },
+    fontSize: {
+      38: [
+        '38px',
+        {
+          lineHeight: '40.28px',
+        },
+      ],
+
+      32: [
+        '32px',
+        {
+          lineHeight: '34.28px',
+        },
+      ],
+    },
     fontFamily: {
       Aeonik: ['Aeonik'],
     },

@@ -2,15 +2,15 @@ import Image from 'next/image';
 import { motion } from 'framer-motion';
 
 import useSystemFunctions from '@/hooks/useSystemFunctions';
-import useWindowHeight from '@/hooks/useWindowHeight';
+import useWindowHeight from '@/hooks/useOffsetValue';
 import { slideInFromBottomToSettle, slideInFromLeftToSettle, slideInFromRightToSettle, slideInFromTopToSettle } from '@/utils/helpers';
 import { StarIcon } from '@/public/icons';
 
 const Step15 = () => {
   const {
     metricsState: { metrics },
+    appState: { windowInnerHeight },
   } = useSystemFunctions();
-  const windowHeight = useWindowHeight();
 
   const earned = metrics?.lendingBorrowing?.interest?.earned.toLocaleString();
 
@@ -18,12 +18,12 @@ const Step15 = () => {
     <div
       className="h-full w-full flex flex-col justify-center items-center relative"
       style={{
-        gap: windowHeight! < 700 ? '40px' : '64px',
+        gap: windowInnerHeight! < 700 ? '40px' : '64px',
       }}
     >
       <div className="flex flex-col items-center justify-center gap-3.5">
         <div className="relative">
-          <motion.p {...slideInFromTopToSettle} className="text-[38px] leading-[40.28px] text-center text-white font-medium">
+          <motion.p {...slideInFromTopToSettle} className="text-32 md:text-38 text-center text-white font-medium">
             Your lending <br /> strategy <br /> earned you
           </motion.p>
 
@@ -37,13 +37,13 @@ const Step15 = () => {
           transition={{ delay: 1 }}
           className="px-6 h-[62px] rounded-[40px] bg-white border-[3px] border-50 flex items-center justify-center"
         >
-          <span className="text-[38px] leading-[40.28px] text-center text-50 font-medium">${earned}</span>
+          <span className="text-32 md:text-38 text-center text-50 font-medium">${earned}</span>
         </motion.div>
 
         <motion.span
           {...slideInFromLeftToSettle}
           transition={{ delay: 2 }}
-          className="text-[38px] leading-[40.28px] text-center text-white font-medium"
+          className="text-32 md:text-38 text-center text-white font-medium"
         >
           in interest
         </motion.span>

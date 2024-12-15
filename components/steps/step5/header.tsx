@@ -62,7 +62,7 @@ const Header = ({ step, timer, totalSteps }: HeaderProps) => {
           <motion.div key={index} className="relative w-full h-1 bg-[#FFFFFF3D] rounded overflow-hidden">
             <motion.div
               animate={{ width: index === step ? `${(timer / 4) * 100}%` : index < step ? '100%' : '0%' }}
-              transition={{ duration: 0.4, ease: 'easeInOut' }}
+              transition={{ duration: 0.8, ease: 'easeInOut' }}
               className="absolute top-0 left-0 h-full bg-[#FFF]"
             />
           </motion.div>

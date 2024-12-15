@@ -1,7 +1,6 @@
 import { motion } from 'framer-motion';
 
 import useSystemFunctions from '@/hooks/useSystemFunctions';
-import useWindowHeight from '@/hooks/useWindowHeight';
 import Treasure from '@/assets/treasure';
 import { StarIcon } from '@/public/icons';
 import { slideInFromBottomToSettle, slideInFromLeftToSettle, slideInFromTopToSettle } from '@/utils/helpers';
@@ -9,8 +8,8 @@ import { slideInFromBottomToSettle, slideInFromLeftToSettle, slideInFromTopToSet
 const Step6 = () => {
   const {
     metricsState: { metrics },
+    appState: { windowInnerHeight },
   } = useSystemFunctions();
-  const windowHeight = useWindowHeight();
 
   const largestTransaction = metrics?.transactionActivity.largestTransaction.value?.toLocaleString();
 
@@ -18,12 +17,12 @@ const Step6 = () => {
     <div
       className="h-full w-full flex flex-col gap-8 items-center relative"
       style={{
-        paddingTop: windowHeight! < 700 ? `${windowHeight! * 0.15}px` : `${windowHeight! * 0.2}px`,
+        paddingTop: windowInnerHeight! < 700 ? `${windowInnerHeight! * 0.15}px` : `${windowInnerHeight! * 0.2}px`,
       }}
     >
       <div className="flex flex-col gap-3.5">
         <motion.div {...slideInFromTopToSettle} className="relative">
-          <p className="text-[38px] leading-[40.28px] text-center text-50 font-medium relative">
+          <p className="text-32 md:text-38 text-center text-50 font-medium relative">
             Your <span className="text-650">portfolio</span> <br /> reached its <br /> peak with a
           </p>
 
@@ -39,7 +38,7 @@ const Step6 = () => {
           {...slideInFromLeftToSettle}
           className="px-4 h-[62px] rounded-[40px] bg-white border-[3px] border-50 flex items-center justify-center"
         >
-          <span className="text-[38px] leading-[40.28px] text-center text-50 font-medium">${largestTransaction}</span>
+          <span className="text-32 md:text-38 text-center text-50 font-medium">${largestTransaction}</span>
         </motion.div>
 
         <motion.p
@@ -47,7 +46,7 @@ const Step6 = () => {
           transition={{
             delay: 2,
           }}
-          className="text-[38px] leading-[40.28px] text-center text-50 font-medium"
+          className="text-32 md:text-38 text-center text-50 font-medium"
         >
           transactions <br /> in <span className="text-650">December.</span>
         </motion.p>
