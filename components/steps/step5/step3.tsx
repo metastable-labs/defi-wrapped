@@ -4,13 +4,14 @@ import { motion } from 'framer-motion';
 import { StarIcon } from '@/public/icons';
 import useSystemFunctions from '@/hooks/useSystemFunctions';
 import { generateConsistentColor, slideInFromRightToSettle, slideInFromTopToSettle } from '@/utils/helpers';
-import useWindowHeight from '@/hooks/useWindowHeight';
 
 const Step3 = () => {
   const {
     metricsState: { metrics },
+    appState: { windowInnerHeight },
   } = useSystemFunctions();
-  const windowHeight = useWindowHeight();
+
+  const ladderDimensions = windowInnerHeight! < 750 ? 265 : 300;
 
   const mostUsedProtocols = metrics?.protocolUsage?.mostUsedProtocols;
 
@@ -25,7 +26,7 @@ const Step3 = () => {
       <motion.p
         {...slideInFromRightToSettle}
         transition={{ delay: 1 }}
-        className="text-[38px] leading-[40.28px] text-center text-50 font-medium relative z-20"
+        className="text-32 md:text-38 text-center text-50 font-medium relative z-20"
       >
         <span className="text-600">Top 5</span> DeFi <br /> destinations of <br /> 2024
       </motion.p>
@@ -82,15 +83,22 @@ const Step3 = () => {
           ) : (
             <motion.div
               className="min-w-40 px-6 h-[62px] flex items-center justify-center relative rounded-full border-[3px] border-black bg-white z-10"
+              initial={{ opacity: 0 }}
               animate={{
                 rotate: [0, -10, 10, 0],
+                opacity: 1,
               }}
               transition={{
-                duration: 4,
-                delay: 0.3,
-                repeat: Infinity,
-                repeatType: 'loop',
-                ease: 'easeInOut',
+                rotate: {
+                  duration: 4,
+                  delay: 0.3,
+                  repeat: Infinity,
+                  repeatType: 'loop',
+                  ease: 'easeInOut',
+                },
+                opacity: {
+                  delay: 1.5,
+                },
               }}
             >
               <span className="text-50 text-4xl text-center font-medium">N/A</span>
@@ -103,10 +111,10 @@ const Step3 = () => {
           animate={{ y: 0, transition: { delay: 1 } }}
           className="absolute w-full h-full flex items-end justify-center z-0"
           style={{
-            top: windowHeight! < 700 ? '50%' : windowHeight! < 750 ? '40%' : '5%',
+            top: windowInnerHeight! < 700 ? '40%' : windowInnerHeight! < 750 ? '25%' : '5%',
           }}
         >
-          <Image src={'/images/ladder.png'} alt="Ladder" width={300} height={300} className="object-cover" />
+          <Image src={'/images/ladder.png'} alt="Ladder" width={ladderDimensions} height={ladderDimensions} className="object-cover" />
         </motion.div>
 
         <div className="absolute z-20 top-32 left-40 scale-75">

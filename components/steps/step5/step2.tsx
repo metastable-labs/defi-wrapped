@@ -22,7 +22,7 @@ const Step2 = () => {
   const mostFrequentDestinationCount = (metrics?.protocolUsage.interactionCounts[mostFrequentDestination!] || 0).toLocaleString();
   return (
     <div className="h-full w-full flex flex-col gap-2 justify-center items-center relative">
-      <motion.h1 {...slideInFromTopToSettle} className="text-[38px] leading-[40.28px] text-center text-50 font-medium">
+      <motion.h1 {...slideInFromTopToSettle} className="text-32 md:text-38 text-center text-50 font-medium">
         Your most <br /> frequent <br /> destination was
       </motion.h1>
 
@@ -36,7 +36,7 @@ const Step2 = () => {
         }}
         className="px-4 h-[62px] rounded-[40px] border-[3px] border-50 flex items-center justify-center"
       >
-        <span className="text-[38px] leading-[40.28px] text-center text-50 font-medium">{mostFrequentDestination}</span>
+        <span className="text-32 md:text-38 text-center text-50 font-medium">{mostFrequentDestination}</span>
       </motion.div>
 
       <motion.h1
@@ -44,7 +44,7 @@ const Step2 = () => {
         transition={{
           delay: 2,
         }}
-        className="text-[38px] leading-[40.28px] text-center text-50 font-medium"
+        className="text-32 md:text-38 text-center text-50 font-medium"
       >
         where you <br /> executed over
       </motion.h1>
@@ -56,7 +56,7 @@ const Step2 = () => {
         }}
         className="px-4 h-[62px] rounded-[40px] bg-white border-[3px] border-50 flex items-center justify-center relative"
       >
-        <span className="text-[38px] leading-[40.28px] text-center text-50 font-medium">{mostFrequentDestinationCount}</span>
+        <span className="text-32 md:text-38 text-center text-50 font-medium">{mostFrequentDestinationCount}</span>
 
         <div className="absolute -top-2 -right-3 scale-95">
           <StarIcon duration={5} />
@@ -72,7 +72,7 @@ const Step2 = () => {
         transition={{
           delay: 3.2,
         }}
-        className="text-[38px] leading-[40.28px] text-center text-600 font-medium"
+        className="text-32 md:text-38 text-center text-600 font-medium"
       >
         transactions
       </motion.span>

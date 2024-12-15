@@ -2,8 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import classNames from 'classnames';
 import { AnimatePresence, motion } from 'framer-motion';
 
-import useWindowHeight from '@/hooks/useWindowHeight';
-
+import useSystemFunctions from '@/hooks/useSystemFunctions';
 import { ArrowLeftCircleIcon, ArrowRightCircleIcon } from '@/public/icons';
 import { DWClickAnimation } from '@/components/UI';
 import Header from './header';
@@ -23,13 +22,23 @@ import Step13 from './step13';
 import Step14 from './step14';
 import Step15 from './step15';
 import Step16 from './step16';
+import Clouds from '@/assets/clouds';
 
-const Step5Wrapper = ({ setFooterTextColor, setShouldTransitionToSix, showStepFiveLastStep, setShowStepFiveLastStep }: StepProps) => {
+const getFillColor = (step: number) => {
+  if (step <= 2) return '#F0FFCC';
+  if (step <= 6) return '#CAC2FF';
+  if (step <= 10) return '#C2D6FF';
+  return '#FFA6B0';
+};
+
+const Step5Wrapper = ({ setFooterTextColor, setShouldTransitionToSix }: StepProps) => {
   const [step, setStep] = useState(0);
   const [timer, setTimer] = useState(0);
-  const windowHeight = useWindowHeight();
+  const {
+    appState: { windowInnerHeight },
+  } = useSystemFunctions();
   const totalSteps = 16;
-  const stepDuration = 5;
+  const stepDuration = 8;
 
   const intervalRef = useRef<number | null>(null);
   const currentStepRef = useRef(0);
@@ -120,14 +129,6 @@ const Step5Wrapper = ({ setFooterTextColor, setShouldTransitionToSix, showStepFi
     if (step > 2) setFooterTextColor?.('text-700');
   }, [step, setFooterTextColor]);
 
-  useEffect(() => {
-    if (showStepFiveLastStep) {
-      currentStepRef.current = 15;
-      setStep(15);
-      setShowStepFiveLastStep?.(false);
-    }
-  }, [showStepFiveLastStep, setShowStepFiveLastStep]);
-
   return (
     <div
       className={classNames('flex flex-col relative', {
@@ -136,7 +137,7 @@ const Step5Wrapper = ({ setFooterTextColor, setShouldTransitionToSix, showStepFi
         'bg-300': step > 6 && step <= 10,
         'bg-500': step > 10 && step <= 15,
       })}
-      style={{ height: `${windowHeight!}px`, maxHeight: `${windowHeight!}px` }}
+      style={{ height: `${windowInnerHeight!}px`, maxHeight: `${windowInnerHeight!}px` }}
     >
       <Header step={step} timer={timer} totalSteps={totalSteps} />
 
@@ -158,7 +159,7 @@ const Step5Wrapper = ({ setFooterTextColor, setShouldTransitionToSix, showStepFi
         ))}
       </div>
 
-      <div className="absolute w-full h-full">
+      <div className="absolute w-full h-full z-10">
         <AnimatePresence mode="popLayout">
           <motion.div
             key={step}
@@ -171,6 +172,10 @@ const Step5Wrapper = ({ setFooterTextColor, setShouldTransitionToSix, showStepFi
             {steps[step]}
           </motion.div>
         </AnimatePresence>
+      </div>
+
+      <div className="w-full h-full absolute top-0 left-0">
+        <Clouds fill={getFillColor(step)} numberOfClouds={6} />
       </div>
     </div>
   );

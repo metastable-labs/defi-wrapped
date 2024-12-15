@@ -2,6 +2,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 
 import metricsReducer from './metrics';
+import appReducer from './app';
 
 export interface CallbackProps {
   onSuccess?: Function;
@@ -11,6 +12,7 @@ export interface CallbackProps {
 export const store = configureStore({
   reducer: {
     metrics: metricsReducer,
+    app: appReducer,
   },
 });
 

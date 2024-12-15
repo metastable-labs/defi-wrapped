@@ -18,7 +18,7 @@ const Step11 = () => {
   const aero = 6_000?.toLocaleString();
   return (
     <div className="h-full w-full flex flex-col gap-2.5 justify-center items-center relative">
-      <motion.span {...slideInFromTopToSettle} className="text-[38px] leading-[40.28px] text-center text-50 font-medium">
+      <motion.span {...slideInFromTopToSettle} className="text-32 md:text-38 text-center text-50 font-medium">
         You earned
       </motion.span>
 
@@ -27,14 +27,10 @@ const Step11 = () => {
         transition={{ delay: 1 }}
         className="px-4 h-[62px] rounded-[40px] bg-400 border-[3px] border-50 flex items-center justify-center"
       >
-        <span className="text-[38px] leading-[40.28px] text-center text-50 font-medium">${earned}</span>
+        <span className="text-32 md:text-38 text-center text-50 font-medium">${earned}</span>
       </motion.div>
 
-      <motion.p
-        {...slideInFromLeftToSettle}
-        transition={{ delay: 1.5 }}
-        className="text-[38px] leading-[40.28px] text-center text-50 font-medium"
-      >
+      <motion.p {...slideInFromLeftToSettle} transition={{ delay: 1.5 }} className="text-32 md:text-38 text-center text-50 font-medium">
         amount from <br /> trading fees <br /> and
       </motion.p>
 
@@ -43,10 +39,10 @@ const Step11 = () => {
         transition={{ delay: 2 }}
         className="px-4 h-[62px] rounded-[40px] bg-750 border-[3px] border-50 flex items-center justify-center"
       >
-        <span className="text-[38px] leading-[40.28px] text-center text-50 font-medium">{aero} AERO</span>
+        <span className="text-32 md:text-38 text-center text-50 font-medium">{aero} AERO</span>
       </motion.div>
 
-      <motion.p transition={{ delay: 3 }} {...growInAnimation} className="text-[38px] leading-[40.28px] text-center text-650 font-medium">
+      <motion.p transition={{ delay: 3 }} {...growInAnimation} className="text-32 md:text-38 text-center text-650 font-medium">
         <span className="text-50">from</span> Aero <br /> token <br /> Emissions
       </motion.p>
     </div>

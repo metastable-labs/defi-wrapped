@@ -7,49 +7,41 @@ import Logo from '@/assets/logo';
 import Clouds from '@/assets/clouds';
 import { appearAnimation } from '@/utils/helpers';
 import { useAccount } from 'wagmi';
+import useSystemFunctions from '@/hooks/useSystemFunctions';
 
 export default function Home() {
   const { isConnected, address } = useAccount();
+  const {
+    appState: { windowInnerHeight },
+  } = useSystemFunctions();
 
   const [step, setStep] = useState(0);
   const [shouldTransitionToSix, setShouldTransitionToSix] = useState(false);
   const [footerTextColor, setFooterTextColor] = useState('text-150');
-  const [showStepFiveLastStep, setShowStepFiveLastStep] = useState(false);
 
   const steps = [
     <Step1 key={0} />,
-    <Step2 key={1} onNext={() => handleStep(2)} />,
-    <Step3 key={2} onNext={() => handleStep(3)} />,
-    <Step4 key={3} onNext={() => handleStep(4)} />,
-    <Step5
-      showStepFiveLastStep={showStepFiveLastStep}
-      key={4}
-      setFooterTextColor={setFooterTextColor}
-      setShouldTransitionToSix={setShouldTransitionToSix}
-      setShowStepFiveLastStep={setShowStepFiveLastStep}
-    />,
+    <Step2 key={1} />,
+    <Step3 key={2} />,
+    <Step4 key={3} onNext={() => setStep(4)} />,
+    <Step5 key={4} setFooterTextColor={setFooterTextColor} setShouldTransitionToSix={setShouldTransitionToSix} />,
     <Step6
       key={5}
       onPrev={() => {
         setTimeout(() => {
           setStep((prev) => Math.max(prev - 1, 0));
           setShouldTransitionToSix(false);
-          setShowStepFiveLastStep(true);
         }, 100);
       }}
       setShouldTransitionToSix={setShouldTransitionToSix}
     />,
   ];
 
-  const handleStep = (nextStep: number) => {
-    setStep(nextStep);
-  };
-
   useEffect(() => {
     const timer = setTimeout(() => {
       if (step === 0) {
         if (isConnected && address) {
-          handleStep(2);
+          setStep(2);
         } else {
           setStep(1);
         }
@@ -67,7 +59,10 @@ export default function Home() {
   }, [shouldTransitionToSix]);
 
   return (
-    <div className="relative md:bg-black md:w-full md:max-h-screen md:flex md:justify-center p-0 m-0 overflow-hidden">
+    <div
+      className="relative md:bg-black md:w-full md:flex md:justify-center p-0 m-0 overflow-hidden"
+      style={{ maxHeight: windowInnerHeight }}
+    >
       <div className="relative md:w-[395px] 2xl:w-96 md:self-center md:rounded-md h-full overflow-hidden">
         <AnimatePresence mode="wait">
           {step >= 1 && step <= 3 && (
@@ -85,24 +80,9 @@ export default function Home() {
         </AnimatePresence>
 
         <AnimatePresence mode="popLayout">
-          <motion.div key={`step-${step}`} {...appearAnimation}>
+          <motion.div key={step} {...appearAnimation}>
             {steps[step]}
           </motion.div>
-        </AnimatePresence>
-
-        <AnimatePresence mode="wait">
-          {step === 3 && (
-            <motion.div
-              key="clouds"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.5 }}
-              className="w-full absolute top-[20%] left-0"
-            >
-              <Clouds fill="#B8D5FF" />
-            </motion.div>
-          )}
         </AnimatePresence>
 
         <AnimatePresence mode="wait">

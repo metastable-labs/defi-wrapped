@@ -7,8 +7,9 @@ import { useAccount } from 'wagmi';
 
 import { DisconnectIcon, StarIcon } from '@/public/icons';
 import useSystemFunctions from '@/hooks/useSystemFunctions';
-import useWindowHeight from '@/hooks/useWindowHeight';
+import Clouds from '@/assets/clouds';
 import { DWClickAnimation, DWHorizontalSnapScroll } from '../UI';
+import DWLoader from '../UI/loader';
 
 const truncate = (str: string, startChars = 5, endChars = 5) => {
   if (str.length <= startChars + endChars) {
@@ -19,8 +20,11 @@ const truncate = (str: string, startChars = 5, endChars = 5) => {
 
 const Step6 = ({ onPrev, setShouldTransitionToSix }: StepProps) => {
   const { address } = useAccount();
-  const windowHeight = useWindowHeight();
+  const {
+    appState: { windowInnerHeight },
+  } = useSystemFunctions();
   const [step, setSteps] = useState(0);
+  const [isSharing, setIsSharing] = useState(false);
 
   const truncatedText = useMemo(() => {
     if (address !== undefined) {
@@ -45,26 +49,40 @@ const Step6 = ({ onPrev, setShouldTransitionToSix }: StepProps) => {
   const boxRef = useRef<HTMLDivElement>(null);
 
   const handleShare = async () => {
-    if (boxRef.current) {
-      try {
-        const dataUrl = await toPng(boxRef.current);
-        const blob = await fetch(dataUrl).then((res) => res.blob());
-        const file = new File([blob], 'DeFiWrapped.png', { type: 'image/png' });
+    if (!boxRef.current) return;
 
-        if (navigator.share) {
-          await navigator.share({
-            files: [file],
-            title: 'DeFi Wrapped',
-            text: 'Check out my DeFi stats!',
-          });
-        } else {
-          alert('Sharing is not supported on this browser.');
-        }
-      } catch (error: any) {
-        if (error.name !== 'AbortError') {
-          console.error('Failed to share image:', error);
-        }
+    try {
+      // Disable the share button and show a loading state
+      setIsSharing(true);
+
+      // Introduce a small delay to ensure the DOM is fully rendered
+      await new Promise((resolve) => setTimeout(resolve, 300)); // Adjust delay as needed
+
+      const dataUrl = await toPng(boxRef.current, {
+        pixelRatio: 2, // Higher resolution
+      });
+
+      const blob = await fetch(dataUrl).then((res) => res.blob());
+      const file = new File([blob], 'DeFiWrapped.png', { type: 'image/png' });
+
+      if (navigator.share) {
+        await navigator.share({
+          files: [file],
+          title: 'DeFi Wrapped',
+          text: 'Check out my DeFi stats!',
+        });
+      } else {
+        alert('Sharing is not supported on this browser.');
       }
+    } catch (error: any) {
+      console.error('Failed to share image:', error);
+
+      if (error.name !== 'AbortError') {
+        alert('Something went wrong while sharing the image. Please try again.');
+      }
+    } finally {
+      // Re-enable the share button
+      setIsSharing(false);
     }
   };
 
@@ -166,9 +184,9 @@ const Step6 = ({ onPrev, setShouldTransitionToSix }: StepProps) => {
     <div
       {...swipeHandlers}
       className="bg-background-250 overflow-hidden relative pt-8 flex flex-col"
-      style={{ height: `${windowHeight!}px`, maxHeight: `${windowHeight!}px` }}
+      style={{ height: `${windowInnerHeight!}px`, maxHeight: `${windowInnerHeight!}px` }}
     >
-      <div className="flex justify-between items-center px-4">
+      <div className="flex justify-between items-center px-4 relative z-20">
         <h3 className="text-50 text-[14px] leading-[18.48px] font-medium transition-colors duration-500">DeFi Wrapped</h3>
         <div className="flex items-center justify-center gap-1">
           <div
@@ -185,7 +203,7 @@ const Step6 = ({ onPrev, setShouldTransitionToSix }: StepProps) => {
         </div>
       </div>
 
-      <div className="flex-1 pt-11 pb-24 flex flex-col gap-16 items-stretch justify-between">
+      <div className="flex-1 pt-11 pb-24 flex flex-col gap-16 items-stretch justify-between relative z-20">
         <div className="flex flex-col gap-5 items-center">
           <div className="h-[26px] px-5 rounded-full border border-black flex items-center justify-center">
             <span className="text-xs text-50 font-medium">Summary</span>
@@ -206,10 +224,10 @@ const Step6 = ({ onPrev, setShouldTransitionToSix }: StepProps) => {
 
         <div className="flex flex-col items-center gap-3 px-4">
           <DWClickAnimation
-            className="h-[66px] px-20 rounded-[33px] bg-300 border-[1.5px] border-50 flex items-center justify-center"
+            className="h-[66px] w-[212px] px-20 rounded-[33px] bg-300 border-[1.5px] border-50 flex items-center justify-center"
             onClick={handleShare}
           >
-            <span className="text-[18px] leading-[23.76px] text-50 text-center font-bold">Share</span>
+            {isSharing ? <DWLoader /> : <span className="text-[18px] leading-[23.76px] text-50 text-center font-bold">Share</span>}
           </DWClickAnimation>
 
           <p className="text-150 text-xs font-medium text-center">
@@ -219,6 +237,10 @@ const Step6 = ({ onPrev, setShouldTransitionToSix }: StepProps) => {
             </a>
           </p>
         </div>
+      </div>
+
+      <div className="w-full h-full absolute top-0 left-0">
+        <Clouds fill="#C2D6FF" numberOfClouds={6} />
       </div>
     </div>
   );

@@ -16,6 +16,7 @@ const useSystemFunctions = () => {
 
   // states
   const metricsState = useAppSelector((state) => state.metrics);
+  const appState = useAppSelector((state) => state.app);
 
   return {
     navigate,
@@ -24,6 +25,7 @@ const useSystemFunctions = () => {
 
     // states
     metricsState,
+    appState,
   };
 };
 

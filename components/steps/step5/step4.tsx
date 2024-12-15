@@ -1,18 +1,20 @@
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 
+import useSystemFunctions from '@/hooks/useSystemFunctions';
+import { slideInFromBottomToSettle, slideInFromTopToSettle } from '@/utils/helpers';
 import Message from '@/assets/message';
 import Plane from '@/assets/plane';
-import { slideInFromBottomToSettle, slideInFromTopToSettle } from '@/utils/helpers';
-import useWindowHeight from '@/hooks/useWindowHeight';
 
 const Step4 = () => {
-  const windowHeight = useWindowHeight();
+  const {
+    appState: { windowInnerHeight },
+  } = useSystemFunctions();
   return (
     <div
       className="h-full w-full flex flex-col items-center relative gap-10"
       style={{
-        paddingTop: `${windowHeight! * 0.3}px`,
+        paddingTop: `${windowInnerHeight! * 0.3}px`,
       }}
     >
       <motion.h1 {...slideInFromTopToSettle} className="text-[55px] leading-[55px] text-center text-50 font-medium relative z-50">
