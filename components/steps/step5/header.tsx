@@ -31,7 +31,7 @@ const Header = ({ step, timer, totalSteps }: HeaderProps) => {
   }, [address]);
 
   return (
-    <div className="w-full flex flex-col gap-1 pt-8 px-4 relative z-50">
+    <div className="w-full flex flex-col gap-4 pt-8 px-4 relative z-50">
       <div className="flex justify-between items-center">
         <h3
           className={classNames('text-[14px] leading-[18.48px] font-medium transition-colors duration-500', {
@@ -57,13 +57,19 @@ const Header = ({ step, timer, totalSteps }: HeaderProps) => {
         </div>
       </div>
 
-      <div className="flex items-center gap-2 mt-2">
+      <div className="flex items-center gap-[3px]">
         {Array.from({ length: totalSteps }).map((_, index) => (
-          <motion.div key={index} className="relative w-full h-1 bg-[#FFFFFF3D] rounded overflow-hidden">
+          <motion.div
+            key={index}
+            className={classNames('relative w-full h-1 rounded overflow-hidden transition-all duration-500', {
+              'bg-black/[0.36]': step <= 2,
+              'bg-white': step > 2,
+            })}
+          >
             <motion.div
               animate={{ width: index === step ? `${(timer / 4) * 100}%` : index < step ? '100%' : '0%' }}
               transition={{ duration: 0.8, ease: 'easeInOut' }}
-              className="absolute top-0 left-0 h-full bg-[#FFF]"
+              className="absolute top-0 left-0 h-full bg-50"
             />
           </motion.div>
         ))}

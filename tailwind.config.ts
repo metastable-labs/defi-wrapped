@@ -37,6 +37,7 @@ export default {
         900: '#B3D4FF',
         950: '#FBFFF0',
         1000: '#E5C4FF',
+        1050: '#D4E6FF',
         foreground: 'var(--foreground)',
       },
 

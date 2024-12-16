@@ -21,8 +21,8 @@ export default function Home() {
 
   const steps = [
     <Step1 key={0} />,
-    <Step2 key={1} />,
-    <Step3 key={2} />,
+    <Step2 key={1} onNext={() => setStep(2)} />,
+    <Step3 key={2} onNext={() => setStep(3)} />,
     <Step4 key={3} onNext={() => setStep(4)} />,
     <Step5 key={4} setFooterTextColor={setFooterTextColor} setShouldTransitionToSix={setShouldTransitionToSix} />,
     <Step6
