@@ -28,7 +28,7 @@ const Step3 = () => {
         transition={{ delay: 1 }}
         className="text-32 md:text-38 text-center text-50 font-medium relative z-20"
       >
-        <span className="text-600">Top 5</span> DeFi <br /> destinations of <br /> 2024
+        <span className="text-600">Top</span> DeFi <br /> destinations of <br /> 2024
       </motion.p>
 
       <div className="flex-1 w-full relative flex items-center justify-center">
