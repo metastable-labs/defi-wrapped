@@ -6,7 +6,7 @@ import { slideInFromTopToSettle, slideInFromLeftToSettle } from '@/utils/helpers
 
 const Step1 = () => {
   return (
-    <div className="h-full w-full flex flex-col items-center relative pt-[24.35%]">
+    <div className="h-full w-full flex flex-col items-center relative pt-[24.35%] md:pt-[50%]">
       <motion.h1 {...slideInFromTopToSettle} className="text-[55px] leading-[55px] text-center text-50 font-medium relative z-50">
         Protocol <br /> Mastery
       </motion.h1>
