@@ -1,12 +1,12 @@
 'use client';
 import { useState, useRef, useEffect, useMemo } from 'react';
-import { useSwipeable } from 'react-swipeable';
 import classNames from 'classnames';
 import { toPng } from 'html-to-image';
 import { useAccount } from 'wagmi';
 
 import { DisconnectIcon, StarIcon } from '@/public/icons';
 import useSystemFunctions from '@/hooks/useSystemFunctions';
+import useOffsetValue from '@/hooks/useOffsetValue';
 import Clouds from '@/assets/clouds';
 import { DWClickAnimation, DWHorizontalSnapScroll } from '../UI';
 import DWLoader from '../UI/loader';
@@ -38,53 +38,29 @@ const Step6 = ({ onPrev, setShouldTransitionToSix }: StepProps) => {
     metricsState: { metrics },
   } = useSystemFunctions();
 
-  const mostUsedProtocol = metrics?.protocolUsage.mostUsedProtocols[0];
-  const usedCount = (metrics?.protocolUsage.interactionCounts[mostUsedProtocol!] || 0).toLocaleString();
-  const transactionCount = metrics?.transactionActivity.totalTransactions?.toLocaleString();
-  const mostTradedPairs = metrics?.tradingMetrics?.mostSwappedPairs[0];
-  const totalSwapped = metrics?.tradingMetrics?.totalSwapped?.toLocaleString();
-  const earned = metrics?.lendingBorrowing?.interest.earned?.toLocaleString();
-  const lent = metrics?.lendingBorrowing?.totalSupplied?.toLocaleString();
+  const paddingTop = useOffsetValue(windowInnerHeight!, {
+    small: 0.015,
+    medium: 0.02,
+    large: 0.045,
+  });
+
+  const paddingBottom = useOffsetValue(windowInnerHeight!, {
+    small: 0.03,
+    medium: 0.04,
+    large: 0.09,
+  });
+
+  const mostUsedProtocol = metrics?.protocolUsage.mostUsedProtocols[0] || 'N/A';
+  const usedCount = metrics?.protocolUsage.interactionCounts[mostUsedProtocol!]?.toLocaleString() || 0;
+  const transactionCount = metrics?.transactionActivity.totalTransactions?.toLocaleString() || 'N/A';
+  const gasFee = metrics?.transactionActivity.totalGasFee.base?.toLocaleString() || 0;
+  const saved = metrics?.transactionActivity.totalGasFee.saved?.toLocaleString() || 0;
+  const mostTradedPairs = metrics?.tradingMetrics?.mostSwappedPairs[0] || 'N/A';
+  const totalSwapped = metrics?.tradingMetrics?.totalSwapped?.toLocaleString() || 0;
+  const earned = metrics?.lendingBorrowing?.interest.earned?.toLocaleString() || 0;
+  const lent = metrics?.lendingBorrowing?.totalSupplied?.toLocaleString() || 0;
 
   const boxRef = useRef<HTMLDivElement>(null);
-
-  const handleShare = async () => {
-    if (!boxRef.current) return;
-
-    try {
-      // Disable the share button and show a loading state
-      setIsSharing(true);
-
-      // Introduce a small delay to ensure the DOM is fully rendered
-      await new Promise((resolve) => setTimeout(resolve, 300)); // Adjust delay as needed
-
-      const dataUrl = await toPng(boxRef.current, {
-        pixelRatio: 2, // Higher resolution
-      });
-
-      const blob = await fetch(dataUrl).then((res) => res.blob());
-      const file = new File([blob], 'DeFiWrapped.png', { type: 'image/png' });
-
-      if (navigator.share) {
-        await navigator.share({
-          files: [file],
-          title: 'DeFi Wrapped',
-          text: 'Check out my DeFi stats!',
-        });
-      } else {
-        alert('Sharing is not supported on this browser.');
-      }
-    } catch (error: any) {
-      console.error('Failed to share image:', error);
-
-      if (error.name !== 'AbortError') {
-        alert('Something went wrong while sharing the image. Please try again.');
-      }
-    } finally {
-      // Re-enable the share button
-      setIsSharing(false);
-    }
-  };
 
   const steps = [
     <>
@@ -122,8 +98,8 @@ const Step6 = ({ onPrev, setShouldTransitionToSix }: StepProps) => {
       </div>
 
       <p className="text-center">
-        transactions this year <br /> and spent <span className="text-300">${(500).toLocaleString()}</span> in gas <br /> fees. You saved
-        <span className="text-300">${(350).toLocaleString()}</span> <br /> using <span className="text-300">{'Base'}</span>
+        transactions this year <br /> and spent <span className="text-300">${gasFee}</span> in gas <br /> fees. You saved
+        <span className="text-300">${saved}</span> <br /> using <span className="text-300">{'Base'}</span>
       </p>
     </>,
     <>
@@ -168,12 +144,48 @@ const Step6 = ({ onPrev, setShouldTransitionToSix }: StepProps) => {
     </>,
   ];
 
-  const swipeHandlers = useSwipeable({
-    onSwipedRight: () => {
-      if (step === 0) onPrev?.();
-    },
-    trackMouse: true,
-  });
+  const handleShare = async () => {
+    if (!boxRef.current) return;
+
+    try {
+      // Disable the share button and show a loading state
+      setIsSharing(true);
+
+      // Introduce a small delay to ensure the DOM is fully rendered
+      await new Promise((resolve) => setTimeout(resolve, 300)); // Adjust delay as needed
+
+      const dataUrl = await toPng(boxRef.current, {
+        pixelRatio: 2, // Higher resolution
+      });
+
+      const blob = await fetch(dataUrl).then((res) => res.blob());
+      const file = new File([blob], 'DeFiWrapped.png', { type: 'image/png' });
+
+      if (navigator.share) {
+        await navigator.share({
+          files: [file],
+          title: 'DeFi Wrapped',
+          text: 'Check out my DeFi stats!',
+        });
+      } else {
+        alert('Sharing is not supported on this browser.');
+      }
+    } catch (error: any) {
+      console.error('Failed to share image:', error);
+
+      if (error.name !== 'AbortError') {
+        alert('Something went wrong while sharing the image. Please try again.');
+      }
+    } finally {
+      // Re-enable the share button
+      setIsSharing(false);
+    }
+  };
+
+  const actions = [
+    { title: 'Share', onClick: handleShare, loading: isSharing },
+    { title: 'Go back', onClick: onPrev },
+  ];
 
   useEffect(() => {
     setShouldTransitionToSix?.(false);
@@ -182,7 +194,6 @@ const Step6 = ({ onPrev, setShouldTransitionToSix }: StepProps) => {
 
   return (
     <div
-      {...swipeHandlers}
       className="bg-background-250 overflow-hidden relative pt-8 flex flex-col"
       style={{ height: `${windowInnerHeight!}px`, maxHeight: `${windowInnerHeight!}px` }}
     >
@@ -203,7 +214,10 @@ const Step6 = ({ onPrev, setShouldTransitionToSix }: StepProps) => {
         </div>
       </div>
 
-      <div className="flex-1 pt-11 pb-24 flex flex-col gap-16 items-stretch justify-between relative z-20">
+      <div
+        className="flex-1 flex flex-col gap-6 items-stretch relative z-20"
+        style={{ paddingTop, paddingBottom, justifyContent: windowInnerHeight! > 800 ? 'space-between' : 'flex-start' }}
+      >
         <div className="flex flex-col gap-5 items-center">
           <div className="h-[26px] px-5 rounded-full border border-black flex items-center justify-center">
             <span className="text-xs text-50 font-medium">Summary</span>
@@ -222,13 +236,27 @@ const Step6 = ({ onPrev, setShouldTransitionToSix }: StepProps) => {
           </DWHorizontalSnapScroll>
         </div>
 
-        <div className="flex flex-col items-center gap-3 px-4">
-          <DWClickAnimation
-            className="h-[66px] w-[212px] px-20 rounded-[33px] bg-300 border-[1.5px] border-50 flex items-center justify-center"
-            onClick={handleShare}
-          >
-            {isSharing ? <DWLoader /> : <span className="text-[18px] leading-[23.76px] text-50 text-center font-bold">Share</span>}
-          </DWClickAnimation>
+        <div className="flex flex-col items-center gap-5 px-4">
+          <div className="flex flex-col items-center gap-3">
+            {actions.map(({ title, onClick, loading }, index) => (
+              <DWClickAnimation
+                key={index}
+                className={classNames('w-[212px] px-20 rounded-[33px] border-[1.5px] border-50 flex items-center justify-center', {
+                  'bg-300': index == 0,
+                  'bg-1050': index == 1,
+                  'h-[66px]': windowInnerHeight! > 750,
+                  'h-[52px]': windowInnerHeight! < 750,
+                })}
+                onClick={onClick}
+              >
+                {loading ? (
+                  <DWLoader />
+                ) : (
+                  <span className="text-[18px] leading-[23.76px] text-50 text-center font-bold whitespace-nowrap">{title}</span>
+                )}
+              </DWClickAnimation>
+            ))}
+          </div>
 
           <p className="text-150 text-xs font-medium text-center">
             Liquid is making DeFi as simple as browsing <br /> a social feed. Join the waitlist{' '}

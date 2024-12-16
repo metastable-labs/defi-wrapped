@@ -13,7 +13,7 @@ const Step3 = ({ onNext }: StepProps) => {
   } = useSystemFunctions();
 
   const {
-    metricsState: { loading },
+    metricsState: { loading, metrics },
   } = useSystemFunctions();
   const { getMetrics } = useMetricsActions();
   const { address } = useAccount();
@@ -24,7 +24,7 @@ const Step3 = ({ onNext }: StepProps) => {
   }, []);
 
   useEffect(() => {
-    if (!loading) {
+    if (!loading && metrics) {
       onNext?.();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

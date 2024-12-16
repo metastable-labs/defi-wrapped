@@ -1,9 +1,12 @@
+import { useEffect } from 'react';
 import Image from 'next/image';
+import { useAccount } from 'wagmi';
 import { useConnectModal } from '@rainbow-me/rainbowkit';
 
 import useSystemFunctions from '@/hooks/useSystemFunctions';
 
-const Step2 = () => {
+const Step2 = ({ onNext }: StepProps) => {
+  const { isConnected, address } = useAccount();
   const { openConnectModal } = useConnectModal();
   const {
     appState: { windowInnerHeight },
@@ -14,6 +17,11 @@ const Step2 = () => {
       openConnectModal();
     }
   };
+
+  useEffect(() => {
+    if (isConnected && address) onNext?.();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isConnected, address]);
 
   return (
     <div
