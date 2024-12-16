@@ -16,11 +16,19 @@ type Metrics = {
       value: number;
       date: string | null;
     };
+    totalGasFee: {
+      base: number;
+      eth: number;
+      saved: number;
+    };
   };
   tradingMetrics: {
     totalSwapped: number;
     mostSwappedPairs: Array<string>;
-    liquidityPools: Array<string>;
+    liquidityPools: {
+      pool: string;
+      contribution: number;
+    }[];
   };
   lendingBorrowing: {
     totalSupplied: number;

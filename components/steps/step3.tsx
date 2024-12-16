@@ -5,7 +5,7 @@ import { useAccount } from 'wagmi';
 import useSystemFunctions from '@/hooks/useSystemFunctions';
 import useMetricsActions from '@/store/metrics/actions';
 
-const ADDRESS = '0xf179d72886f0ad150b3186ad478a851486f4f1fa';
+const ADDRESS = '0x0edd332128dab768eda2ff788fc9069f52698f29';
 
 const Step3 = ({ onNext }: StepProps) => {
   const {

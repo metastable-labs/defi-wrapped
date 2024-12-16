@@ -44,10 +44,10 @@ const Step10 = () => {
             >
               {metrics?.tradingMetrics?.liquidityPools.map((pool, index) => (
                 <motion.div
-                  key={pool}
+                  key={pool.pool}
                   className="min-w-40 px-6 h-[62px] flex items-center justify-center relative rounded-full border-[3px] border-black"
                   style={{
-                    backgroundColor: generateConsistentColor(pool),
+                    backgroundColor: generateConsistentColor(pool.pool),
                     zIndex: [0, 2, 4].includes(index) ? 2 : 1,
                   }}
                   variants={{
@@ -68,7 +68,7 @@ const Step10 = () => {
                     },
                   }}
                 >
-                  <span className="text-50 text-4xl text-center font-medium">{pool}</span>
+                  <span className="text-50 text-4xl text-center font-medium">{pool.pool}</span>
                 </motion.div>
               ))}
             </motion.div>

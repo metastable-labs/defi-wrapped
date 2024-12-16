@@ -6,7 +6,7 @@ type IMetrics = {
 
 const metrics: IMetrics = {
   getMetrics: async (address: string): Promise<Metrics> => {
-    const response = await axiosInstance.get(`?address=${address}`);
+    const response = await axiosInstance.get(`base?address=${address}`);
 
     return response.data;
   },
