@@ -5,5 +5,6 @@ import ArrowLeftCircleIcon from './arrow-left-circle-icon';
 import ArrowRightCircleIcon from './arrow-right-circle-icon';
 import CloudIcon from './cloud-icon';
 import LoadingIcon from './loading-icon';
+import ReplayIcon from './replay-icon';
 
-export { StarIcon, StarAltIcon, DisconnectIcon, ArrowLeftCircleIcon, ArrowRightCircleIcon, CloudIcon, LoadingIcon };
+export { StarIcon, StarAltIcon, DisconnectIcon, ArrowLeftCircleIcon, ArrowRightCircleIcon, CloudIcon, LoadingIcon, ReplayIcon };

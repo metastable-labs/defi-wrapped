@@ -4,12 +4,11 @@ import classNames from 'classnames';
 import { toPng } from 'html-to-image';
 import { useAccount } from 'wagmi';
 
-import { DisconnectIcon, StarIcon } from '@/public/icons';
+import { DisconnectIcon, StarIcon, ReplayIcon } from '@/public/icons';
 import useSystemFunctions from '@/hooks/useSystemFunctions';
 import useOffsetValue from '@/hooks/useOffsetValue';
 import Clouds from '@/assets/clouds';
-import { DWClickAnimation, DWHorizontalSnapScroll } from '../UI';
-import DWLoader from '../UI/loader';
+import { DWClickAnimation, DWHorizontalSnapScroll, DWLoader } from '@/components/UI';
 
 const truncate = (str: string, startChars = 5, endChars = 5) => {
   if (str.length <= startChars + endChars) {
@@ -18,7 +17,7 @@ const truncate = (str: string, startChars = 5, endChars = 5) => {
   return `${str.substring(0, startChars)}...${str.substring(str.length - endChars)}`;
 };
 
-const Step6 = ({ onPrev, setShouldTransitionToSix }: StepProps) => {
+const Summary = ({ onPrev, setShouldTransitionToSix }: StepProps) => {
   const { address } = useAccount();
   const {
     appState: { windowInnerHeight },
@@ -148,14 +147,12 @@ const Step6 = ({ onPrev, setShouldTransitionToSix }: StepProps) => {
     if (!boxRef.current) return;
 
     try {
-      // Disable the share button and show a loading state
       setIsSharing(true);
 
-      // Introduce a small delay to ensure the DOM is fully rendered
-      await new Promise((resolve) => setTimeout(resolve, 300)); // Adjust delay as needed
+      await new Promise((resolve) => setTimeout(resolve, 300));
 
       const dataUrl = await toPng(boxRef.current, {
-        pixelRatio: 2, // Higher resolution
+        pixelRatio: 2,
       });
 
       const blob = await fetch(dataUrl).then((res) => res.blob());
@@ -177,14 +174,13 @@ const Step6 = ({ onPrev, setShouldTransitionToSix }: StepProps) => {
         alert('Something went wrong while sharing the image. Please try again.');
       }
     } finally {
-      // Re-enable the share button
       setIsSharing(false);
     }
   };
 
   const actions = [
     { title: 'Share', onClick: handleShare, loading: isSharing },
-    { title: 'Go back', onClick: onPrev },
+    { title: 'Replay', onClick: onPrev, icon: <ReplayIcon /> },
   ];
 
   useEffect(() => {
@@ -194,7 +190,7 @@ const Step6 = ({ onPrev, setShouldTransitionToSix }: StepProps) => {
 
   return (
     <div
-      className="bg-background-250 overflow-hidden relative pt-8 flex flex-col"
+      className="overflow-hidden relative pt-8 flex flex-col h-full"
       style={{ height: `${windowInnerHeight!}px`, maxHeight: `${windowInnerHeight!}px` }}
     >
       <div className="flex justify-between items-center px-4 relative z-20">
@@ -238,10 +234,10 @@ const Step6 = ({ onPrev, setShouldTransitionToSix }: StepProps) => {
 
         <div className="flex flex-col items-center gap-5 px-4">
           <div className="flex flex-col items-center gap-3">
-            {actions.map(({ title, onClick, loading }, index) => (
+            {actions.map(({ title, onClick, loading, icon }, index) => (
               <DWClickAnimation
                 key={index}
-                className={classNames('w-[212px] px-20 rounded-[33px] border-[1.5px] border-50 flex items-center justify-center', {
+                className={classNames('w-[212px] px-20 rounded-[33px] border-[1.5px] border-50 flex items-center justify-center gap-1', {
                   'bg-300': index == 0,
                   'bg-1050': index == 1,
                   'h-[66px]': windowInnerHeight! > 750,
@@ -252,7 +248,10 @@ const Step6 = ({ onPrev, setShouldTransitionToSix }: StepProps) => {
                 {loading ? (
                   <DWLoader />
                 ) : (
-                  <span className="text-[18px] leading-[23.76px] text-50 text-center font-bold whitespace-nowrap">{title}</span>
+                  <>
+                    {icon && <div className="min-w-fit">{icon}</div>}
+                    <span className="text-[18px] leading-[23.76px] text-50 text-center font-bold whitespace-nowrap">{title}</span>
+                  </>
                 )}
               </DWClickAnimation>
             ))}
@@ -274,4 +273,4 @@ const Step6 = ({ onPrev, setShouldTransitionToSix }: StepProps) => {
   );
 };
 
-export default Step6;
+export default Summary;

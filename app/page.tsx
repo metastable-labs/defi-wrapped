@@ -4,7 +4,6 @@ import { AnimatePresence, motion } from 'framer-motion';
 
 import { Step1, Step2, Step3, Step4, Step5, Step6 } from '@/components/steps';
 import Logo from '@/assets/logo';
-import Clouds from '@/assets/clouds';
 import { appearAnimation } from '@/utils/helpers';
 import { useAccount } from 'wagmi';
 import useSystemFunctions from '@/hooks/useSystemFunctions';
