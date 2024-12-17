@@ -10,7 +10,7 @@ const Step10 = () => {
     appState: { windowInnerHeight },
   } = useSystemFunctions();
 
-  const showLiquidityPools = Boolean(metrics?.tradingMetrics.liquidityPools.length);
+  const showLiquidityPools = Boolean(metrics?.tradingMetrics?.liquidityPools?.length);
 
   return (
     <div
