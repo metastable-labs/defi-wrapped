@@ -1,5 +1,5 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 
 import { Step1, Step2, Step3, Step4, Step5, Step6 } from '@/components/steps';
@@ -9,6 +9,7 @@ import { useAccount } from 'wagmi';
 import useSystemFunctions from '@/hooks/useSystemFunctions';
 
 export default function Home() {
+  const audioRef = useRef<HTMLAudioElement>(null);
   const { isConnected, address } = useAccount();
   const {
     appState: { windowInnerHeight },
@@ -18,11 +19,19 @@ export default function Home() {
   const [shouldTransitionToSix, setShouldTransitionToSix] = useState(false);
   const [footerTextColor, setFooterTextColor] = useState('text-150');
 
+  const handleStep4Next = () => {
+    setStep(4);
+
+    if (audioRef.current) {
+      audioRef.current.play();
+    }
+  };
+
   const steps = [
     <Step1 key={0} />,
     <Step2 key={1} onNext={() => setStep(2)} />,
     <Step3 key={2} onNext={() => setStep(3)} />,
-    <Step4 key={3} onNext={() => setStep(4)} />,
+    <Step4 key={3} onNext={handleStep4Next} />,
     <Step5 key={4} setFooterTextColor={setFooterTextColor} setShouldTransitionToSix={setShouldTransitionToSix} />,
     <Step6
       key={5}
@@ -118,6 +127,10 @@ export default function Home() {
           )}
         </AnimatePresence>
       </div>
+
+      <audio ref={audioRef} loop>
+        <source src="/future.mp3" type="audio/mp3" />
+      </audio>
     </div>
   );
 }
