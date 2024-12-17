@@ -1,7 +1,6 @@
 import { motion } from 'framer-motion';
 
 import useSystemFunctions from '@/hooks/useSystemFunctions';
-import useWindowHeight from '@/hooks/useOffsetValue';
 import { generateConsistentColor, slideInFromTopToSettle } from '@/utils/helpers';
 
 const Step10 = () => {
@@ -10,7 +9,8 @@ const Step10 = () => {
     appState: { windowInnerHeight },
   } = useSystemFunctions();
 
-  const showLiquidityPools = Boolean(metrics?.tradingMetrics?.liquidityPools?.length);
+  const hideLiquidityPools =
+    !metrics?.tradingMetrics?.liquidityPools[0]?.pool || (metrics?.tradingMetrics?.liquidityPools?.length || 0) == 0;
 
   return (
     <div
@@ -26,7 +26,7 @@ const Step10 = () => {
 
       <div className="relative">
         <div className="w-full pt-10 flex items-center justify-center flex-col gap-2">
-          {showLiquidityPools ? (
+          {!hideLiquidityPools ? (
             <motion.div
               className="flex items-center justify-center flex-col gap-2"
               initial="hidden"
@@ -47,7 +47,7 @@ const Step10 = () => {
                   key={pool.pool}
                   className="min-w-40 px-6 h-[62px] flex items-center justify-center relative rounded-full border-[3px] border-black"
                   style={{
-                    backgroundColor: generateConsistentColor(pool.pool),
+                    backgroundColor: generateConsistentColor(pool?.pool || ''),
                     zIndex: [0, 2, 4].includes(index) ? 2 : 1,
                   }}
                   variants={{
