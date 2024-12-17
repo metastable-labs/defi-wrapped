@@ -5,8 +5,6 @@ import { useAccount } from 'wagmi';
 import useSystemFunctions from '@/hooks/useSystemFunctions';
 import useMetricsActions from '@/store/metrics/actions';
 
-const ADDRESS = '0x0edd332128dab768eda2ff788fc9069f52698f29';
-
 const Step3 = ({ onNext }: StepProps) => {
   const {
     appState: { windowInnerHeight },
@@ -19,9 +17,11 @@ const Step3 = ({ onNext }: StepProps) => {
   const { address } = useAccount();
 
   useEffect(() => {
-    getMetrics(ADDRESS); // Replace with `address` when available
+    if (!address) return;
+
+    getMetrics(address);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [address]);
 
   useEffect(() => {
     if (!loading && metrics) {

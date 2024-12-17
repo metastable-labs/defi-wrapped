@@ -11,6 +11,7 @@ import {
   slideInFromRightToSettle,
   growInAnimation,
 } from '@/utils/helpers';
+import classNames from 'classnames';
 
 const Step2 = () => {
   const {
@@ -34,9 +35,16 @@ const Step2 = () => {
         style={{
           backgroundColor: mostFrequentDestinationColor,
         }}
-        className="px-4 h-[62px] rounded-[40px] border-[3px] border-50 flex items-center justify-center"
+        className="px-4 h-[62px] rounded-[40px] border-[3px] border-50 flex items-center justify-center max-w-[90%]"
       >
-        <span className="text-32 md:text-38 text-center text-50 font-medium">{mostFrequentDestination}</span>
+        <span
+          className={classNames('text-32 text-center text-50 font-medium', {
+            'md:text-38': (mostFrequentDestination?.length || 0) < 15,
+            'md:text-[23px]': (mostFrequentDestination?.length || 0) >= 15,
+          })}
+        >
+          {mostFrequentDestination}
+        </span>
       </motion.div>
 
       <motion.h1

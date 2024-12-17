@@ -19,7 +19,7 @@ import Step9 from './step9';
 import Step10 from './step10';
 import Step11 from './step11';
 import Step12 from './step12';
-import Step13 from './step13';
+// import Step13 from './step13';
 import Step14 from './step14';
 import Step15 from './step15';
 import Step16 from './step16';
@@ -39,7 +39,6 @@ const Step5Wrapper = ({ setFooterTextColor, setShouldTransitionToSix }: StepProp
     appState: { windowInnerHeight },
   } = useSystemFunctions();
 
-  const totalSteps = 16;
   const stepDuration = 8;
 
   const intervalRef = useRef<number | null>(null);
@@ -58,11 +57,13 @@ const Step5Wrapper = ({ setFooterTextColor, setShouldTransitionToSix }: StepProp
     <Step10 key={9} />,
     <Step11 key={10} />,
     <Step12 key={11} />,
-    <Step13 key={12} />,
+    // <Step13 key={12} />,
     <Step14 key={13} />,
     <Step15 key={14} />,
     <Step16 key={15} />,
   ];
+
+  const totalSteps = steps.length;
 
   // Function to reset timer
   const resetTimer = () => {
@@ -125,6 +126,7 @@ const Step5Wrapper = ({ setFooterTextColor, setShouldTransitionToSix }: StepProp
 
       return () => clearTimeout(timeout);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [step, setFooterTextColor, setShouldTransitionToSix]);
 
   return (

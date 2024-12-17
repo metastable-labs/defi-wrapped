@@ -66,7 +66,14 @@ const Summary = ({ onPrev, setShouldTransitionToSix }: StepProps) => {
       <span>This year</span>
 
       <div className="px-6 h-[51px] rounded-[40px] bg-400 border-[3px] border-50 flex items-center justify-center relative">
-        <span className="text-[25px] leading-[26.5px] font-medium text-50">{mostUsedProtocol}</span>
+        <span
+          className={classNames('leading-[26.5px] font-medium text-50', {
+            'text-[25px]': mostUsedProtocol.length < 15,
+            'text-[17px]': mostUsedProtocol.length >= 15,
+          })}
+        >
+          {mostUsedProtocol}
+        </span>
 
         <div className="absolute -top-2 -right-3 z-10">
           <StarIcon duration={5} fill="#FFFFFF" width={36} height={36} />
@@ -97,8 +104,11 @@ const Summary = ({ onPrev, setShouldTransitionToSix }: StepProps) => {
       </div>
 
       <p className="text-center">
-        transactions this year <br /> and spent <span className="text-300">${gasFee}</span> in gas <br /> fees. You saved
-        <span className="text-300">${saved}</span> <br /> using <span className="text-300">{'Base'}</span>
+        transactions this year <br /> and spent <span className="text-300">${gasFee}</span> in gas fees.
+      </p>
+      <p className="text-center pt-4">
+        You saved
+        <span className="text-300"> ${saved}</span> <br /> using <span className="text-300">{'Base'}</span>
       </p>
     </>,
     <>
