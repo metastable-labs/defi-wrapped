@@ -1,6 +1,7 @@
 'use client';
 import { useState, useEffect, useRef } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
+import FrameSDK from '@farcaster/frame-sdk';
 
 import { Step1, Step2, Step3, Step4, Step5, Step6 } from '@/components/steps';
 import Logo from '@/assets/logo';
@@ -18,6 +19,10 @@ export default function Home() {
   const [step, setStep] = useState(0);
   const [shouldTransitionToSix, setShouldTransitionToSix] = useState(false);
   const [footerTextColor, setFooterTextColor] = useState('text-150');
+
+  useEffect(() => {
+    FrameSDK.actions.ready();
+  }, []);
 
   const handleStep4Next = () => {
     setStep(4);

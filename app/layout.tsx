@@ -43,6 +43,25 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <meta
+          name="fc:frame"
+          content='{
+            "version": "next",
+            "imageUrl": "https://defiwrapped.xyz/images/embed.png",
+            "button":{
+              "title": "See Yours",
+              "action": {
+                "type": "launch_frame",
+                "name": "DeFi Wrapped",
+                "url": "https://defiwrapped.xyz",
+                "splashImageUrl": "https://defiwrapped.xyz/images/loading.gif",
+                "splashBackgroundColor": "#edf4ff"
+              }
+            }
+          }'
+        />
+      </head>
       <body className={`font-Aeonik`}>
         <App>{children}</App>
       </body>

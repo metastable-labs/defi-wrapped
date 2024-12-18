@@ -1,0 +1,17 @@
+{
+  "accountAssociation": {
+    "header": "eyJmaWQiOjM2MjEsInR5cGUiOiJjdXN0b2R5Iiwia2V5IjoiMHgyY2Q4NWEwOTMyNjFmNTkyNzA4MDRBNkVBNjk3Q2VBNENlQkVjYWZFIn0",
+    "payload": "eyJkb21haW4iOiJkZWZpd3JhcHBlZC54eXoifQ",
+    "signature": "MHhiYjJiNjEzMjJhZjI2MmNkNzBiNGM4Nzg4MjBhOGMxZTBjMWY0M2Q3ZjYzZGQ2YzE4MWM0ZjU0YWNlZDYxMDJmMmJiMmQwNzg2YjNlODdlODcwNWU1MzAxOTliZTQ1YjE5MDgyNTFjMjE4YmQyMWVmZWJjMjNhZGI4MGRlYTc0NzFj"
+  },
+  "frame": {
+    "version": "1",
+    "name": "DeFi Wrapped",
+    "iconUrl": "https://defiwrapped.xyz/images/dollar-coins.png",
+    "homeUrl": "https://defiwrapped.xyz",
+    "imageUrl": "https://defiwrapped.xyz/images/embed.png",
+    "buttonTitle": "See yours",
+    "splashImageUrl": "https://defiwrapped.xyz/images/loading.gif",
+    "splashBackgroundColor": "#edf4ff"
+  }
+}

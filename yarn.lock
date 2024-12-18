@@ -110,6 +110,29 @@
     ethereum-cryptography "^2.0.0"
     micro-ftch "^0.3.1"
 
+"@farcaster/frame-core@^0.0.18":
+  version "0.0.18"
+  resolved "https://registry.yarnpkg.com/@farcaster/frame-core/-/frame-core-0.0.18.tgz#c6e5e13d63350ef9ec728b37d13c6fcefd19bc44"
+  integrity sha512-up01bcs5cLxgCiL7keqHVROVX5WS0waTrvSyrEXv92jSh0KosvU6OsxI1gS+6wtwqGP4KdPB0+7VmYydQaVzKQ==
+  dependencies:
+    ox "^0.4.0"
+    zod "^3.23.8"
+
+"@farcaster/frame-sdk@^0.0.19":
+  version "0.0.19"
+  resolved "https://registry.yarnpkg.com/@farcaster/frame-sdk/-/frame-sdk-0.0.19.tgz#46a8e7e4184eec3052b804a949b6228b4cf5181c"
+  integrity sha512-JnUUtZNOH73essJGrNXeUKGHdKTP3z/7ykHWxGFwVy3KzXMucVTjwHMsgk5mWj92QFuxVd3wIlCppW8z+Nohxg==
+  dependencies:
+    "@farcaster/frame-core" "^0.0.18"
+    comlink "^4.4.2"
+    eventemitter3 "^5.0.1"
+    ox "^0.4.0"
+
+"@farcaster/frame-wagmi-connector@^0.0.5":
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/@farcaster/frame-wagmi-connector/-/frame-wagmi-connector-0.0.5.tgz#d97d101a4b6b30ef4e964d8d8a76c5d92a2ab8e5"
+  integrity sha512-P2L3AWviuBx/XYoTl5gZ1mXGgEJeEKfJkyYsNqyPult/nQ9Aiz2y9mpnX/zCIiJ0NmMHhDdLmD6nDeDV6MM1MQ==
+
 "@humanwhocodes/config-array@^0.13.0":
   version "0.13.0"
   resolved "https://registry.yarnpkg.com/@humanwhocodes/config-array/-/config-array-0.13.0.tgz#fb907624df3256d04b9aa2df50d7aa97ec648748"
@@ -2093,6 +2116,11 @@ combined-stream@^1.0.8:
   integrity sha512-FQN4MRfuJeHf7cBbBMJFXhKSDq+2kAArBlmRBvcvFE5BB1HZKXtSFASDhdlz9zOYwxh8lDdnvmMOe/+5cdoEdg==
   dependencies:
     delayed-stream "~1.0.0"
+
+comlink@^4.4.2:
+  version "4.4.2"
+  resolved "https://registry.yarnpkg.com/comlink/-/comlink-4.4.2.tgz#cbbcd82742fbebc06489c28a183eedc5c60a2bca"
+  integrity sha512-OxGdvBmJuNKSCMO4NTl1L47VRp6xn2wG4F/2hYzB6tiCb709otOxtEYCSvK80PtjODfXXZu8ds+Nw5kVCjqd2g==
 
 commander@^4.0.0:
   version "4.1.1"
@@ -4270,6 +4298,19 @@ ox@0.1.2:
     abitype "^1.0.6"
     eventemitter3 "5.0.1"
 
+ox@^0.4.0:
+  version "0.4.2"
+  resolved "https://registry.yarnpkg.com/ox/-/ox-0.4.2.tgz#0ef5b322baec0cbd055dfb27f22795f6af522594"
+  integrity sha512-X3Ho21mTtJiCU2rWmfaheh2b0CG70Adre7Da/XQ0ECy+QppI6pLqdbGAJHiu/cTjumVXfwDGfv48APqePCU+ow==
+  dependencies:
+    "@adraffy/ens-normalize" "^1.10.1"
+    "@noble/curves" "^1.6.0"
+    "@noble/hashes" "^1.5.0"
+    "@scure/bip32" "^1.5.0"
+    "@scure/bip39" "^1.4.0"
+    abitype "^1.0.6"
+    eventemitter3 "5.0.1"
+
 p-limit@^2.2.0:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/p-limit/-/p-limit-2.3.0.tgz#3dd33c647a214fdfffd835933eb086da0dc21db1"
@@ -5918,6 +5959,11 @@ yocto-queue@^0.1.0:
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/yocto-queue/-/yocto-queue-0.1.0.tgz#0294eb3dee05028d31ee1a5fa2c556a6aaf10a1b"
   integrity sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==
+
+zod@^3.23.8:
+  version "3.24.1"
+  resolved "https://registry.yarnpkg.com/zod/-/zod-3.24.1.tgz#27445c912738c8ad1e9de1bea0359fa44d9d35ee"
+  integrity sha512-muH7gBL9sI1nciMZV67X5fTKKBLtwpZ5VBp1vsOQzj1MhrBZ4wlVCm3gedKZWLp0Oyel8sIGfeiz54Su+OVT+A==
 
 zustand@5.0.0:
   version "5.0.0"
