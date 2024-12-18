@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { StarIcon } from '@/public/icons';
 import useSystemFunctions from '@/hooks/useSystemFunctions';
 import { generateConsistentColor, slideInFromRightToSettle, slideInFromTopToSettle } from '@/utils/helpers';
+import EmptyState from './empty';
 
 const Step3 = () => {
   const {
@@ -15,7 +16,11 @@ const Step3 = () => {
 
   const mostUsedProtocols = metrics?.protocolUsage?.mostUsedProtocols;
 
-  const showMostUsedProtocols = Boolean(mostUsedProtocols);
+  const showMostUsedProtocols = Boolean(mostUsedProtocols?.length);
+
+  if (!showMostUsedProtocols) {
+    return <EmptyState title="You didn't interact with any of the Top 10 DeFi protocols on Base" />;
+  }
 
   return (
     <div className="h-full w-full flex flex-col gap-[9px] items-center relative pt-32">
