@@ -1,13 +1,13 @@
 {
   "accountAssociation": {
     "header": "eyJmaWQiOjE5NjMzOSwidHlwZSI6ImN1c3RvZHkiLCJrZXkiOiIweDgzQjk3QzRBM0QyREFEMkY1MTZmNjE1OUZDRkRhYjViNzNlMjI0YzcifQ",
-    "payload": "eyJkb21haW4iOiJkZWZpd3JhcHBlZC54eXoifQ",
-    "signature": "MHg1ODZjODg4OWE0NDc5MmIyN2MzMDA1ZTBhNzcxM2U3NWE4NmY5OTE1ZmVkYjNjYzVlOTU1OTc5MjY0YzFmYzJlNjA5YzdkNWU5NGE0ZjBjNjlhODQzOGQzZTMwOWMzY2FjNjY5YzIzYzIxZTE0NmJlNDllYjE4ZjA2ZjEyMGJlMTFi"
+    "payload": "eyJkb21haW4iOiJ3d3cuZGVmaXdyYXBwZWQueHl6In0",
+    "signature": "MHgxZjIyMjZiZGViMTJiNTA5YjRlZDU5Njg1NDUxYWU4ODkwZDUzOGUzMGM2NmVlNjg1NTM0NTJjNTEyNThhNGI2MWFiNzNhYWI0ZjI3MGNmNWUwOWM1ODY4ZjIzZWMzMTBhMTIyOWU0YWYwZjI1NTEzNTNjNjdlMTc0NGFhYjU3NDFj"
   },
   "frame": {
     "version": "1",
-    "name": "DeFi Wrapped",
-    "iconUrl": "https://defiwrapped.xyz/images/dollar-coins.png",
+    "name": "DeFi Wrapped by useliquid.xyz",
+    "iconUrl": "https://defiwrapped.xyz/logo.png",
     "homeUrl": "https://defiwrapped.xyz",
     "imageUrl": "https://defiwrapped.xyz/images/embed.png",
     "buttonTitle": "See yours",
