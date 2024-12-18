@@ -48,7 +48,7 @@ const Step6 = () => {
           }}
           className="text-32 md:text-38 text-center text-50 font-medium"
         >
-          transactions <br /> in <span className="text-650">December.</span>
+          transactions
         </motion.p>
       </div>
 

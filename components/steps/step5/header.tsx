@@ -3,8 +3,10 @@ import classNames from 'classnames';
 
 import { DisconnectIcon } from '@/public/icons';
 import { DWClickAnimation } from '@/components/UI';
-import { useAccount } from 'wagmi';
+import { useAccount, useDisconnect } from 'wagmi';
 import { useMemo } from 'react';
+import useSystemFunctions from '@/hooks/useSystemFunctions';
+import { setMetrics } from '@/store/metrics';
 
 const truncate = (str: string, startChars = 5, endChars = 5) => {
   if (str.length <= startChars + endChars) {
@@ -19,8 +21,10 @@ const getDisconnectColor = (step: number) => {
   if (step > 6 && step <= 10) return '#1E293B';
 };
 
-const Header = ({ step, timer, totalSteps }: HeaderProps) => {
+const Header = ({ step, timer, totalSteps, refresh }: HeaderProps) => {
   const { address } = useAccount();
+  const { disconnect } = useDisconnect();
+  const { dispatch } = useSystemFunctions();
 
   const truncatedText = useMemo(() => {
     if (address !== undefined) {
@@ -29,6 +33,12 @@ const Header = ({ step, timer, totalSteps }: HeaderProps) => {
     return undefined;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [address]);
+
+  const handleDisconnectWallet = async () => {
+    await disconnect();
+    refresh?.();
+    dispatch(setMetrics(undefined));
+  };
 
   return (
     <div className="w-full flex flex-col gap-4 pt-8 px-4 relative z-50">
@@ -51,7 +61,7 @@ const Header = ({ step, timer, totalSteps }: HeaderProps) => {
           >
             {truncatedText}
           </div>
-          <DWClickAnimation onClick={() => {}}>
+          <DWClickAnimation onClick={handleDisconnectWallet}>
             <DisconnectIcon fill={getDisconnectColor(step)} />
           </DWClickAnimation>
         </div>

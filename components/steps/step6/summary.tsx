@@ -129,7 +129,7 @@ const Summary = ({ onPrev, setShouldTransitionToSix }: StepProps) => {
       </div>
 
       <p className="text-center">
-        You bought and <br /> sold it <span className="text-300">{totalSwapped}</span> times
+        You grossed a trade <br /> volume of <span className="text-300">${totalSwapped}</span>
       </p>
     </>,
     <>
@@ -159,20 +159,21 @@ const Summary = ({ onPrev, setShouldTransitionToSix }: StepProps) => {
     try {
       setIsSharing(true);
 
-      await new Promise((resolve) => setTimeout(resolve, 300));
-
       const dataUrl = await toPng(boxRef.current, {
         pixelRatio: 2,
       });
+
+      await new Promise((resolve) => setTimeout(resolve, 1500));
 
       const blob = await fetch(dataUrl).then((res) => res.blob());
       const file = new File([blob], 'DeFiWrapped.png', { type: 'image/png' });
 
       if (navigator.share) {
+        await new Promise((resolve) => setTimeout(resolve, 1000));
         await navigator.share({
           files: [file],
           title: 'DeFi Wrapped',
-          text: 'Check out my DeFi stats!',
+          text: 'Check out my DeFi stats! View your Defi activity on defiwrapped.xyz.',
         });
       } else {
         alert('Sharing is not supported on this browser.');

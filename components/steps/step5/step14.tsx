@@ -33,7 +33,7 @@ const Step14 = () => {
     <div className="h-full w-full flex flex-col gap-3.5 justify-between items-center relative" style={{ paddingTop }}>
       <div className="flex flex-col items-center justify-center gap-3.5">
         <motion.h1 {...slideInFromTopToSettle} className="text-32 md:text-38 text-center text-white font-medium">
-          You lent
+          You supplied
         </motion.h1>
 
         <motion.div

@@ -19,8 +19,12 @@ export const metricsReducer = createSlice({
       state.loading = action.payload;
     },
 
-    setMetrics: (state, action: PayloadAction<Metrics>) => {
-      state.metrics = action.payload;
+    setMetrics: (state, action: PayloadAction<Metrics | undefined>) => {
+      if (action.payload) {
+        state.metrics = { ...action.payload };
+      } else {
+        state.metrics = undefined;
+      }
     },
   },
 });

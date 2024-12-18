@@ -31,7 +31,7 @@ const getFillColor = (step: number) => {
   return '#FFA6B0';
 };
 
-const Step5Wrapper = ({ setFooterTextColor, setShouldTransitionToSix }: StepProps) => {
+const Step5Wrapper = ({ setFooterTextColor, setShouldTransitionToSix, refresh }: StepProps) => {
   const [step, setStep] = useState(0);
   const [timer, setTimer] = useState(0);
 
@@ -139,7 +139,7 @@ const Step5Wrapper = ({ setFooterTextColor, setShouldTransitionToSix }: StepProp
       })}
       style={{ height: `${windowInnerHeight!}px`, maxHeight: `${windowInnerHeight!}px` }}
     >
-      <Header step={step} timer={timer} totalSteps={totalSteps} />
+      <Header step={step} timer={timer} totalSteps={totalSteps} refresh={refresh} />
 
       <div className="relative z-50 flex-1 w-full flex px-4">
         {[

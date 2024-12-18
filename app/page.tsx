@@ -32,7 +32,12 @@ export default function Home() {
     <Step2 key={1} onNext={() => setStep(2)} />,
     <Step3 key={2} onNext={() => setStep(3)} />,
     <Step4 key={3} onNext={handleStep4Next} />,
-    <Step5 key={4} setFooterTextColor={setFooterTextColor} setShouldTransitionToSix={setShouldTransitionToSix} />,
+    <Step5
+      key={4}
+      refresh={() => setStep(1)}
+      setFooterTextColor={setFooterTextColor}
+      setShouldTransitionToSix={setShouldTransitionToSix}
+    />,
     <Step6
       key={5}
       onPrev={() => {
