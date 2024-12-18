@@ -47,6 +47,7 @@ const Step2 = () => {
           className={classNames('text-32 text-center text-50 font-medium', {
             'md:text-38': (mostFrequentDestination?.length || 0) < 15,
             'md:text-[23px]': (mostFrequentDestination?.length || 0) >= 15,
+            uppercase: mostFrequentDestination.toLowerCase().includes('socket'),
           })}
         >
           {mostFrequentDestination}

@@ -5,6 +5,7 @@ import { StarIcon } from '@/public/icons';
 import useSystemFunctions from '@/hooks/useSystemFunctions';
 import { generateConsistentColor, slideInFromRightToSettle, slideInFromTopToSettle } from '@/utils/helpers';
 import EmptyState from './empty';
+import classNames from 'classnames';
 
 const Step3 = () => {
   const {
@@ -81,7 +82,13 @@ const Step3 = () => {
                     },
                   }}
                 >
-                  <span className="text-50 text-4xl text-center font-medium">{protocol}</span>
+                  <span
+                    className={classNames('text-50 text-4xl text-center font-medium', {
+                      uppercase: protocol.toLowerCase().includes('socket'),
+                    })}
+                  >
+                    {protocol}
+                  </span>
                 </motion.div>
               ))}
             </motion.div>

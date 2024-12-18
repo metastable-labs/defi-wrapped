@@ -70,6 +70,7 @@ const Summary = ({ onPrev, setShouldTransitionToSix }: StepProps) => {
           className={classNames('leading-[26.5px] font-medium text-50', {
             'text-[25px]': mostUsedProtocol.length < 15,
             'text-[17px]': mostUsedProtocol.length >= 15,
+            uppercase: mostUsedProtocol.toLowerCase().includes('socket'),
           })}
         >
           {mostUsedProtocol}
