@@ -5,6 +5,7 @@ import useSystemFunctions from '@/hooks/useSystemFunctions';
 import useOffsetValue from '@/hooks/useOffsetValue';
 import { StarIcon } from '@/public/icons';
 import { slideInFromTopToSettle, slideInFromRightToSettle, slideInFromBottomToSettle } from '@/utils/helpers';
+import EmptyState from './empty';
 
 const Step9 = () => {
   const {
@@ -23,6 +24,10 @@ const Step9 = () => {
 
   const signatureTradingPair = metrics?.tradingMetrics.mostSwappedPairs[0];
   const totalTradingVolume = metrics?.tradingMetrics?.totalSwapped?.toLocaleString();
+
+  if (!signatureTradingPair) {
+    return <EmptyState title="You didn't have any signature trading pairs" variant="secondary" />;
+  }
 
   return (
     <div

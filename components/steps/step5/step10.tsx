@@ -2,6 +2,7 @@ import { motion } from 'framer-motion';
 
 import useSystemFunctions from '@/hooks/useSystemFunctions';
 import { generateConsistentColor, slideInFromTopToSettle } from '@/utils/helpers';
+import EmptyState from './empty';
 
 const Step10 = () => {
   const {
@@ -11,6 +12,10 @@ const Step10 = () => {
 
   const hideLiquidityPools =
     !metrics?.tradingMetrics?.liquidityPools[0]?.pool || (metrics?.tradingMetrics?.liquidityPools?.length || 0) == 0;
+
+  if (hideLiquidityPools) {
+    return <EmptyState title="You didn't provide any liquidity" variant="secondary" />;
+  }
 
   return (
     <div

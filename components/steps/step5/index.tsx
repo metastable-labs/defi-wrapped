@@ -65,7 +65,6 @@ const Step5Wrapper = ({ setFooterTextColor, setShouldTransitionToSix, refresh }:
 
   const totalSteps = steps.length;
 
-  // Function to reset timer
   const resetTimer = () => {
     setTimer(0);
     if (intervalRef.current) {

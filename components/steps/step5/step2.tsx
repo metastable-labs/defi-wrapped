@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import classNames from 'classnames';
 
 import CircleStack from '@/assets/circle-stack';
 import { StarIcon } from '@/public/icons';
@@ -11,7 +12,7 @@ import {
   slideInFromRightToSettle,
   growInAnimation,
 } from '@/utils/helpers';
-import classNames from 'classnames';
+import EmptyState from './empty';
 
 const Step2 = () => {
   const {
@@ -21,6 +22,11 @@ const Step2 = () => {
   const mostFrequentDestination = metrics?.protocolUsage.mostUsedProtocols[0];
   const mostFrequentDestinationColor = generateConsistentColor(mostFrequentDestination! || '');
   const mostFrequentDestinationCount = (metrics?.protocolUsage.interactionCounts[mostFrequentDestination!] || 0).toLocaleString();
+
+  if (!mostFrequentDestination) {
+    return <EmptyState title="You didn't have any destinations or transactions" />;
+  }
+
   return (
     <div className="h-full w-full flex flex-col gap-2 justify-center items-center relative">
       <motion.h1 {...slideInFromTopToSettle} className="text-32 md:text-38 text-center text-50 font-medium">
